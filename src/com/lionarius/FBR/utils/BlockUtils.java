@@ -13,7 +13,7 @@ public class BlockUtils {
 
     public static void setGlow(Location blockLocation, boolean isGlowing)
     {
-        if(!isGlowing)
+        if(isGlowing)
         {
             if(!glowingBlocks.containsKey(blockLocation))
             {
