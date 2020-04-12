@@ -3,6 +3,8 @@ package com.lionarius.FBR.utils;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +23,7 @@ public class BlockUtils {
                 shulker.setAI(false);
                 shulker.setGlowing(true);
                 shulker.setGravity(false);
+                shulker.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 2, false, false));
 
                 glowingBlocks.put(blockLocation, shulker);
             }
