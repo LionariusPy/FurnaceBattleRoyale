@@ -61,8 +61,6 @@ public class FBRTeam {
         addPlayer(player);
         player.setLeader(true);
         setReadyToStart(false);
-
-//        scoreboardObjective.get
     }
 
     public FBRPlayer getLeader()
