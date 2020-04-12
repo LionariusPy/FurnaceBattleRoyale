@@ -12,7 +12,6 @@ import org.bukkit.*;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.lionarius.FBR.config.GameConfigManager;
-import org.bukkit.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,7 +69,7 @@ public class FurnaceBattleRoyale extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new GameStateChangedListener(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerStateChangedListener(), this);
         this.getServer().getPluginManager().registerEvents(new EnterPortalListener(), this);
-        this.getServer().getPluginManager().registerEvents(new PlayerRespawnListener(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
 
         GameManager.setGameState(GameState.WAITING);
         setupCommands();

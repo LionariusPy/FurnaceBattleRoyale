@@ -2,6 +2,7 @@ package com.lionarius.FBR.team;
 
 import com.lionarius.FBR.player.FBRPlayer;
 import com.lionarius.FBR.player.PlayerManager;
+import com.lionarius.FBR.player.PlayerState;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,17 @@ public class TeamManager {
         {
             FBRTeam team = fbrPlayer.getTeam();
             if(!teams.contains(team)) teams.add(team);
+        }
+        return teams;
+    }
+
+    public static List<FBRTeam> getAliveFBRTeams()
+    {
+        List<FBRTeam> teams = new ArrayList<FBRTeam>();
+        for(FBRPlayer fbrPlayer : PlayerManager.getPlayersList())
+        {
+            FBRTeam team = fbrPlayer.getTeam();
+            if(!teams.contains(team) && fbrPlayer.getState() != PlayerState.DEAD) teams.add(team);
         }
         return teams;
     }

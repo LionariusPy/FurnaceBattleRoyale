@@ -3,6 +3,9 @@ package com.lionarius.FBR.listeners;
 import com.lionarius.FBR.FurnaceBattleRoyale;
 import com.lionarius.FBR.config.GameConfigManager;
 import com.lionarius.FBR.events.PlayerStateChangedEvent;
+import com.lionarius.FBR.game.GameManager;
+import com.lionarius.FBR.game.GameState;
+import com.lionarius.FBR.team.TeamManager;
 import com.lionarius.FBR.utils.LocationUtils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -62,6 +65,9 @@ public class PlayerStateChangedListener implements Listener {
                     if (!GameConfigManager.CAN_SPECTATE)
                         player.kickPlayer("Вы умерли");
                 }
+
+                if(TeamManager.getAliveFBRTeams().size() == 1)
+                    GameManager.setGameState(GameState.ENDED);
                 break;
         }
     }

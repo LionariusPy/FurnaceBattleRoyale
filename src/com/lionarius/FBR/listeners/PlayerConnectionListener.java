@@ -3,6 +3,7 @@ package com.lionarius.FBR.listeners;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.player.PlayerState;
+import com.lionarius.FBR.team.TeamManager;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -39,10 +40,13 @@ public class PlayerConnectionListener implements Listener {
         FBRPlayer fbrPlayer = PlayerManager.newOrGetFBRPlayer(player);
         fbrPlayer.updatePlayer();
 
-        if(fbrPlayer.getState() == PlayerState.DEAD)
+        if(fbrPlayer.getState() == PlayerState.DEAD && player.getGameMode() != GameMode.SPECTATOR)
         {
             player.getInventory().clear();
             player.setGameMode(GameMode.SPECTATOR);
+
+            if(TeamManager.getAliveFBRTeams().size() == 1)
+                GameManager.setGameState(GameState.ENDED);
         }
 
         if(GameManager.getGameState() != GameState.WAITING && fbrPlayer.getState() == PlayerState.WAITING)
