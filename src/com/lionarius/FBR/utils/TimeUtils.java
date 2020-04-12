@@ -17,7 +17,7 @@ public class TimeUtils {
 
         if(hours > 0) timeString.append(hours).append("ч");
         if(minutes > 0 || hours > 0) timeString.append(minutes).append("м");
-        if(seconds > 0 || minutes > 0 || hours > 0) timeString.append(seconds).append("с");
+        if(seconds >= 0 || minutes > 0 || hours > 0) timeString.append(seconds).append("с");
 
         return timeString.toString();
     }
