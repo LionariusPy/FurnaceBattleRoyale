@@ -1,0 +1,19 @@
+name: FurnaceBattleRoyale
+author: Lionarius
+version: 0.0.1-pre1
+main: com.lionarius.FBR.FurnaceBattleRoyale
+description: Furnace Battle Royale plugin for Zakviel
+api-version: "1.15"
+
+commands:
+  customborder:
+    description: Create border around chunk you currently in
+    usage: /<command> <mode(create|remove)>
+
+  timer:
+    description: Creates timer for 5 sec
+    usage: /<command>
+
+  fbrteam:
+    description: teams
+    usage: /<command>
