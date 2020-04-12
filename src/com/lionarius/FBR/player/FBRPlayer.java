@@ -35,13 +35,11 @@ public class FBRPlayer {
         offlineTask = null;
     }
 
-    public boolean isOnline()
-    {
+    public boolean isOnline() {
         return player.isOnline();
     }
 
-    public FBRTeam getTeam()
-    {
+    public FBRTeam getTeam() {
         return team;
     }
 
@@ -57,18 +55,15 @@ public class FBRPlayer {
         this.furnace = furnace;
     }
 
-    public Player getPlayer()
-    {
+    public Player getPlayer() {
         return player;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public UUID getUuid()
-    {
+    public UUID getUuid() {
         return uuid;
     }
 
@@ -84,14 +79,12 @@ public class FBRPlayer {
         isLeader = leader;
     }
 
-    public void updatePlayer()
-    {
+    public void updatePlayer() {
         this.player = Bukkit.getPlayer(uuid);
     }
 
-    public void setPlayerState(PlayerState playerState)
-    {
-        if(playerState == this.state) return;
+    public void setPlayerState(PlayerState playerState) {
+        if (playerState == this.state) return;
 
         PlayerState oldPlayerState = this.state;
         this.state = playerState;
@@ -99,54 +92,43 @@ public class FBRPlayer {
         Bukkit.getPluginManager().callEvent(new PlayerStateChangedEvent(this, oldPlayerState, playerState));
     }
 
-    public void openInventory(AbstractGUI inventory)
-    {
+    public void openInventory(AbstractGUI inventory) {
         currentGUI = inventory;
         getPlayer().openInventory(inventory.getInventory());
     }
 
-    public void closeInventory()
-    {
+    public void closeInventory() {
         currentGUI = null;
     }
 
-    public AbstractGUI getCurrentGUI()
-    {
+    public AbstractGUI getCurrentGUI() {
         return currentGUI;
     }
 
-    public void updatePlayerVisuals(Scoreboard scoreboard)
-    {
+    public void updatePlayerVisuals(Scoreboard scoreboard) {
         this.getPlayer().setScoreboard(scoreboard);
     }
 
-    public void playerLeftMidgame()
-    {
+    public void playerLeftMidgame() {
         offlineTask = new PlayerOfflineTask(FurnaceBattleRoyale.getInstance(), this);
     }
 
-    public void playerJoinedBack()
-    {
+    public void playerJoinedBack() {
         offlineTask.cancel();
         offlineTask = null;
     }
 
-    public void updateWorldBorder()
-    {
+    public void updateWorldBorder() {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if(GameManager.isChunkPhase() && state != PlayerState.DEAD) {
+                if (GameManager.isChunkPhase() && state != PlayerState.DEAD) {
                     WorldBorderUtils.SetWorldBorderSize(player, 16);
                     WorldBorderUtils.SetWorldBorderLocation(player, team.getTeamChunkLocation());
                 }
-                else resetWorldBorder();
+                else
+                    WorldBorderUtils.ResetWorldBorder(player);
             }
         }.runTaskLater(FurnaceBattleRoyale.getInstance(), 1L);
-    }
-
-    private void resetWorldBorder()
-    {
-        WorldBorderUtils.ResetWorldBorder(player);
     }
 }
