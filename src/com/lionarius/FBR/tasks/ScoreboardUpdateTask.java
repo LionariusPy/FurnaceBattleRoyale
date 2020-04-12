@@ -9,7 +9,6 @@ import com.lionarius.FBR.team.TeamManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
 public class ScoreboardUpdateTask extends BukkitRunnable {
@@ -21,34 +20,12 @@ public class ScoreboardUpdateTask extends BukkitRunnable {
 
     @Override
     public void run() {
-//        for(FBRTeam fbrTeam : TeamManager.getFBRTeams())
-//        {
-////            int teamID = fbrTeam.getTeamID();
-////
-//            fbrTeam.getScoreboard().getTeam("time_" + teamID).setSuffix(GameManager.getCountdownTask().getFormattedTime());
-//            fbrTeam.getScoreboard().getTeam("status_" + teamID).setSuffix(fbrTeam.getFurnaceStatus());
-//        }
-
-        for(Player player : Bukkit.getOnlinePlayers())
+        for(FBRTeam fbrTeam : TeamManager.getFBRTeams())
         {
-            Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-            Objective objective = scoreboard.registerNewObjective("hud", "dummy", "DoomsDay");
+            int teamID = fbrTeam.getTeamID();
 
-            // Здесь свитч на стадии игры
-            switch (GameManager.getGameState())
-            {
-                case WAITING:
-                    // Добавляем нужную инфу в скорборд
-                    objective.getScore("test: " + "test info").setScore(0);
-                    break;
-                case PLAYING_1:
-                    // Добавляем другую нужную инфу в скорборд
-                    break;
-                // И так далее для каждой фазы
-                default: break;
-            }
-
-            player.setScoreboard(scoreboard);
+            fbrTeam.getScoreboard().getTeam("time_" + teamID).setSuffix(GameManager.getCountdownTask().getFormattedTime());
+            fbrTeam.getScoreboard().getTeam("status_" + teamID).setSuffix(fbrTeam.getFurnaceStatus());
         }
 
         if(GameManager.getGameState() == GameState.ENDED) this.cancel();
