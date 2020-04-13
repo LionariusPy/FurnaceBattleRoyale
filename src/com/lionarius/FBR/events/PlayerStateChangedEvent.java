@@ -24,6 +24,11 @@ public class PlayerStateChangedEvent extends Event {
         return HANDLERS_LIST;
     }
 
+    public static HandlerList getHandlerList()
+    {
+        return HANDLERS_LIST;
+    }
+
     public FBRPlayer getFBRPlayer()
     {
         return fbrPlayer;
