@@ -28,15 +28,15 @@ public class CreateChunkBorderCommand implements CommandExecutor {
             System.out.println(args[0]);
             if(args[0].equalsIgnoreCase("create"))
             {
-                WorldBorderUtils.SetWorldBorderSize(player, 16);
+                WorldBorderUtils.setWorldBorderSize(player, 16);
 
                 Location chunkLocation = new Location(player.getWorld(), player.getLocation().getChunk().getX() * 16 +8, 0, (player.getLocation().getChunk().getZ() * 16) + 8);
-                WorldBorderUtils.SetWorldBorderLocation(player, chunkLocation);
+                WorldBorderUtils.setWorldBorderLocation(player, chunkLocation);
                 return true;
             }
             else if(args[0].equalsIgnoreCase("remove"))
             {
-                WorldBorderUtils.ResetWorldBorder(player);
+                WorldBorderUtils.resetWorldBorder(player);
                 return true;
             }
             else return false;
