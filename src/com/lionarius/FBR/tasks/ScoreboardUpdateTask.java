@@ -6,15 +6,11 @@ import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.team.FBRTeam;
 import com.lionarius.FBR.team.TeamManager;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scoreboard.Scoreboard;
 
 public class ScoreboardUpdateTask extends BukkitRunnable {
 
-    public ScoreboardUpdateTask()
-    {
+    public ScoreboardUpdateTask() {
         this.runTaskTimer(FurnaceBattleRoyale.getInstance(), 0L, GameConfigManager.TASK_UPDATE_TIME);
     }
 

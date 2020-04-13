@@ -11,19 +11,15 @@ public class FBRFurnaceTask extends BukkitRunnable {
     private static final int maxTimeWithoutSmelting = GameConfigManager.FURNACE_TIME_WITHOUT_SMELTING * (int)(20L / GameConfigManager.TASK_UPDATE_TIME);
 
     private FBRFurnace furnace;
-    private FurnaceBattleRoyale plugin;
     private int timeWithoutSmelting = maxTimeWithoutSmelting;
 
-    public FBRFurnaceTask(FurnaceBattleRoyale plugin, FBRFurnace furnace)
-    {
-        this.plugin = plugin;
+    public FBRFurnaceTask(FBRFurnace furnace) {
         this.furnace = furnace;
 
-        this.runTaskTimer(plugin, 0L, GameConfigManager.TASK_UPDATE_TIME);
+        this.runTaskTimer(FurnaceBattleRoyale.getInstance(), 0L, GameConfigManager.TASK_UPDATE_TIME);
     }
 
-    public int getFurnaceStatus()
-    {
+    public int getFurnaceStatus() {
         int status = 0;
 
         if(timeWithoutSmelting <= maxTimeWithoutSmelting / 2 || (furnace.getBurnTime() <= maxTimeWithoutSmelting / 2 * 20 && furnace.getFurnaceState().getInventory().getFuel() == null)) status = 1;
@@ -34,15 +30,14 @@ public class FBRFurnaceTask extends BukkitRunnable {
 
     @Override
     public void run() {
-
         if(furnace.getFurnaceBlock().getType() != GameConfigManager.FURNACE_TYPE || timeWithoutSmelting <= 0 || furnace.getBurnTime() <= 0 || furnace.getTeam().getAliveMembers().size() == 0)
         {
-            plugin.getServer().getPluginManager().callEvent(new FurnaceBurnedOutEvent(furnace));
+            FurnaceBattleRoyale.getInstance().getServer().getPluginManager().callEvent(new FurnaceBurnedOutEvent(furnace));
 
             this.cancel();
             return;
         }
-        if(furnace.getFurnaceState().getInventory().getSmelting() == null && furnace.getCookTime() <= 0) timeWithoutSmelting--;
+        if(furnace.getFurnaceState().getInventory().getSmelting() == null || furnace.getCookTime() <= 0) timeWithoutSmelting--;
         else timeWithoutSmelting = maxTimeWithoutSmelting;
     }
 }

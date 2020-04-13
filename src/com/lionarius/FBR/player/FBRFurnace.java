@@ -33,7 +33,7 @@ public class FBRFurnace {
         furnaceState.setBurnTime((short)600);
         furnaceState.update();
 
-        updateTask = new FBRFurnaceTask(FurnaceBattleRoyale.getInstance(), this);
+        updateTask = new FBRFurnaceTask(this);
     }
 
     public Furnace getFurnaceState() { return ((Furnace) furnaceBlock.getState()); }

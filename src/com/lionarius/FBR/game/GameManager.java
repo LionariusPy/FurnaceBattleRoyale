@@ -37,14 +37,14 @@ public class GameManager {
     {
         if(countdownTask != null && !countdownTask.isCancelled()) { stopCountdownTaskNoEnd(); }
 
-        countdownTask = new CountdownTask(FurnaceBattleRoyale.getInstance(), time, update);
+        countdownTask = new CountdownTask(time, update);
     }
 
     public static void createCountdownTask(long time, CountdownTask.ExecutableCountdownAction update, CountdownTask.ExecutableCountdownAction end)
     {
         if(countdownTask != null && !countdownTask.isCancelled()) { stopCountdownTaskNoEnd(); }
 
-        countdownTask = new CountdownTask(FurnaceBattleRoyale.getInstance(), time, update, end);
+        countdownTask = new CountdownTask(time, update, end);
     }
 
     public static void stopCountdownTaskNoEnd()

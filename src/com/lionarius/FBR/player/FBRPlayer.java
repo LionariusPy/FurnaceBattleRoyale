@@ -110,7 +110,7 @@ public class FBRPlayer {
     }
 
     public void playerLeftMidgame() {
-        offlineTask = new PlayerOfflineTask(FurnaceBattleRoyale.getInstance(), this);
+        offlineTask = new PlayerOfflineTask(this);
     }
 
     public void playerJoinedBack() {

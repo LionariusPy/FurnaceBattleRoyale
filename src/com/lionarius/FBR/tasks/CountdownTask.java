@@ -7,27 +7,22 @@ import com.lionarius.FBR.FurnaceBattleRoyale;
 public class CountdownTask extends BukkitRunnable {
 
     private long time;
-    private FurnaceBattleRoyale plugin;
     private ExecutableCountdownAction updateAction;
     private ExecutableCountdownAction stopAction;
 
-    public CountdownTask(FurnaceBattleRoyale plugin, long seconds, ExecutableCountdownAction updateAction, ExecutableCountdownAction stopAction)
-    {
-        this.plugin = plugin;
+    public CountdownTask(long seconds, ExecutableCountdownAction updateAction, ExecutableCountdownAction stopAction) {
         this.time = seconds;
         this.updateAction = updateAction;
         this.stopAction = stopAction;
 
-        this.runTaskTimer(plugin, 0L, 20L);
+        this.runTaskTimer(FurnaceBattleRoyale.getInstance(), 0L, 20L);
     }
 
-    public CountdownTask(FurnaceBattleRoyale plugin, long seconds, ExecutableCountdownAction updateAction)
-    {
-        this.plugin = plugin;
+    public CountdownTask(long seconds, ExecutableCountdownAction updateAction) {
         this.time = seconds;
         this.updateAction = updateAction;
 
-        this.runTaskTimer(plugin, 0L, 20L);
+        this.runTaskTimer(FurnaceBattleRoyale.getInstance(), 0L, 20L);
     }
 
     @Override
@@ -41,26 +36,24 @@ public class CountdownTask extends BukkitRunnable {
         time--;
     }
 
-    public long getTimeInSeconds() { return time; }
+    public long getTimeInSeconds() {
+        return time;
+    }
 
-    public String getFormattedTime()
-    {
+    public String getFormattedTime() {
         return TimeUtils.getFormattedTime(time);
     }
 
-    public void stopCountdown()
-    {
+    public void stopCountdown() {
         if(stopAction != null) stopAction.execute(this);
         this.cancel();
     }
 
-    public void stopCountdownNoEnd()
-    {
+    public void stopCountdownNoEnd() {
         this.cancel();
     }
 
-    public interface ExecutableCountdownAction
-    {
+    public interface ExecutableCountdownAction {
         void execute(CountdownTask countdown);
     }
 }

@@ -10,21 +10,17 @@ public class PlayerOfflineTask extends BukkitRunnable {
 
     private static final int maxOfflineTime = GameConfigManager.MAX_OFFLINE_TIME;
 
-    private FurnaceBattleRoyale plugin;
     private FBRPlayer fbrPlayer;
     private int currentOfflineTime = GameConfigManager.MAX_OFFLINE_TIME;
 
-    public PlayerOfflineTask(FurnaceBattleRoyale plugin, FBRPlayer fbrPlayer)
-    {
-        this.plugin = plugin;
+    public PlayerOfflineTask(FBRPlayer fbrPlayer) {
         this.fbrPlayer = fbrPlayer;
 
-        this.runTaskTimer(plugin, 0L, 20L);
+        this.runTaskTimer(FurnaceBattleRoyale.getInstance(), 0L, 20L);
     }
 
     @Override
     public void run() {
-
         if(currentOfflineTime <= 0)
         {
             fbrPlayer.setPlayerState(PlayerState.DEAD);
