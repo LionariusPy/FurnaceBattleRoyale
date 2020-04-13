@@ -11,7 +11,6 @@ import com.lionarius.FBR.team.FBRTeam;
 import com.lionarius.FBR.team.TeamManager;
 import com.lionarius.FBR.utils.LocationUtils;
 import org.bukkit.*;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -141,6 +140,7 @@ public class GameStateChangedListener implements Listener {
 
         for(FBRPlayer fbrPlayer : PlayerManager.getPlayersList())
             fbrPlayer.updateWorldBorder();
+
         if(GameManager.isChunkPhase())
             GameManager.setPortalsAllowed(false);
         else if(GameConfigManager.IS_PORTALS_ENABLED)
@@ -172,6 +172,7 @@ public class GameStateChangedListener implements Listener {
         for(int x = -size; x <= size; x++) {
             for(int z = -size; z <= size; z++) {
                 for(int y = height; y < height + 4; y++) {
+                    if(world.getBlockAt(x,y,z).getType() == Material.AIR) continue;
                     world.getBlockAt(x, y, z).setType(Material.AIR);
                 }
             }

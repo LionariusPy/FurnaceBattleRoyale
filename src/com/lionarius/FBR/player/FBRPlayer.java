@@ -3,6 +3,7 @@ package com.lionarius.FBR.player;
 import com.lionarius.FBR.FurnaceBattleRoyale;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.gui.AbstractGUI;
+import com.lionarius.FBR.player.invites.Invite;
 import com.lionarius.FBR.tasks.PlayerOfflineTask;
 import com.lionarius.FBR.team.FBRTeam;
 import com.lionarius.FBR.utils.WorldBorderUtils;
@@ -12,6 +13,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.*;
 import com.lionarius.FBR.events.PlayerStateChangedEvent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class FBRPlayer {
@@ -25,6 +28,8 @@ public class FBRPlayer {
     private AbstractGUI currentGUI = null;
     private boolean isLeader;
     private PlayerOfflineTask offlineTask;
+
+    private List<Invite> invites = new ArrayList<>();
 
     public FBRPlayer(Player player) {
         this.player = player;
@@ -124,8 +129,7 @@ public class FBRPlayer {
                 if (GameManager.isChunkPhase() && state != PlayerState.DEAD) {
                     WorldBorderUtils.setWorldBorderSize(player, 16);
                     WorldBorderUtils.setWorldBorderLocation(player, team.getTeamChunkLocation());
-                }
-                else
+                } else
                     WorldBorderUtils.resetWorldBorder(player);
             }
         }.runTaskLater(FurnaceBattleRoyale.getInstance(), 1L);

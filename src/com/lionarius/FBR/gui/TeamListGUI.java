@@ -16,8 +16,9 @@ public class TeamListGUI extends AbstractGUI {
 
         int maxPages = (int) Math.ceil(TeamManager.getFBRTeams().size() / 45);
 
-        ExecutableGUIAction teamAction = (player, action) ->
+        ExecutableGUIAction teamAction = (player, action, slot) ->
         {
+
         };
 
         for(int i = 45*page; i < Math.min(TeamManager.getFBRTeams().size(), 45*(page + 1)); i++)
@@ -25,12 +26,12 @@ public class TeamListGUI extends AbstractGUI {
             setItem(getTeamItem(TeamManager.getFBRTeams().get(i)), i - (45 * page), teamAction);
         }
 
-        ExecutableGUIAction backAction = (player, action) ->
+        ExecutableGUIAction backAction = (player, action, slot) ->
         {
             new TeamListGUI(player, page - 1);
         };
 
-        ExecutableGUIAction nextAction = (player, action) ->
+        ExecutableGUIAction nextAction = (player, action, slot) ->
         {
             new TeamListGUI(player, page + 1);
         };
@@ -38,7 +39,7 @@ public class TeamListGUI extends AbstractGUI {
         if(page > 0) setItem(getBackItem(), 45, backAction);
         if(page < maxPages - 1) setItem(getNextItem(), 53, nextAction);
 
-        ExecutableGUIAction menuAction = (player, action) ->
+        ExecutableGUIAction menuAction = (player, action, slot) ->
         {
             new TeamMenuGUI(player);
         };

@@ -32,11 +32,11 @@ public abstract class AbstractGUI {
 
     public void performAction(int slot, FBRPlayer player, InventoryAction action)
     {
-        actionMap.get(slot).execute(player, action);
+        actionMap.get(slot).execute(player, action, slot);
     }
 
     public interface ExecutableGUIAction
     {
-        void execute(FBRPlayer player, InventoryAction action);
+        void execute(FBRPlayer player, InventoryAction action, int slot);
     }
 }

@@ -1,5 +1,6 @@
 package com.lionarius.FBR.gui;
 
+import com.lionarius.FBR.config.GameConfigManager;
 import com.lionarius.FBR.player.FBRPlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -12,7 +13,7 @@ public class TeamMenuGUI extends AbstractGUI {
         super(ChatColor.GREEN + "Командное меню", 9);
 
         ItemStack ready = getReadyItem(fbrPlayer);
-        ExecutableGUIAction readyAction = (player, action) ->
+        ExecutableGUIAction readyAction = (player, action, slot) ->
         {
             player.getTeam().setReadyToStart(!player.getTeam().isReadyToStart());
 
@@ -22,15 +23,17 @@ public class TeamMenuGUI extends AbstractGUI {
         };
         setItem(ready, 7, readyAction);
 
-        ItemStack teamList = new ItemStack(Material.FURNACE);
-        ItemMeta teamListItemMeta = teamList.getItemMeta();
-        teamListItemMeta.setDisplayName(ChatColor.AQUA + "Список команд");
-        teamList.setItemMeta(teamListItemMeta);
-        ExecutableGUIAction teamListAction =  (player, action) ->
-        {
-            new TeamListGUI(player, 0);
-        };
-        setItem(teamList, 1, teamListAction);
+        if(GameConfigManager.MAX_PLAYERS_TEAM > 1) {
+            ItemStack teamList = new ItemStack(Material.FURNACE);
+            ItemMeta teamListItemMeta = teamList.getItemMeta();
+            teamListItemMeta.setDisplayName(ChatColor.AQUA + "Список команд");
+            teamList.setItemMeta(teamListItemMeta);
+            ExecutableGUIAction teamListAction = (player, action, slot) ->
+            {
+                new TeamListGUI(player, 0);
+            };
+            setItem(teamList, 1, teamListAction);
+        }
 
         fbrPlayer.openInventory(this);
     }

@@ -50,8 +50,8 @@ public class PlayerConnectionListener implements Listener {
             player.getInventory().clear();
             player.setGameMode(GameMode.SPECTATOR);
 
-            if(TeamManager.getAliveFBRTeams().size() == 1)
-                GameManager.setGameState(GameState.ENDED);
+//            if(TeamManager.getAliveFBRTeams().size() == 1)
+//                GameManager.setGameState(GameState.ENDED);
         }
 
         if(GameManager.getGameState() != GameState.WAITING && fbrPlayer.getState() == PlayerState.WAITING)
@@ -74,7 +74,7 @@ public class PlayerConnectionListener implements Listener {
     {
         FBRPlayer fbrPlayer = PlayerManager.getFBRPlayer(event.getPlayer());
 
-        if(fbrPlayer.getState() == PlayerState.PLAYING)
+        if(fbrPlayer.getState() == PlayerState.PLAYING && GameManager.getGameState() != GameState.ENDED)
         {
             fbrPlayer.playerLeftMidgame();
         }
