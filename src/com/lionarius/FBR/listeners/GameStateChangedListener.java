@@ -11,6 +11,8 @@ import com.lionarius.FBR.team.FBRTeam;
 import com.lionarius.FBR.team.TeamManager;
 import com.lionarius.FBR.utils.LocationUtils;
 import org.bukkit.*;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
@@ -26,6 +28,8 @@ public class GameStateChangedListener implements Listener {
         switch (event.getGameState()){
 
             case WAITING:
+                new ScoreboardUpdateTask();
+
                 FurnaceBattleRoyale.getWorld().getWorldBorder().setCenter(0,0);
                 FurnaceBattleRoyale.getWorld().getWorldBorder().setSize(GameConfigManager.MAP_SIZE_IN_CHUNKS * 16);
 
@@ -46,9 +50,6 @@ public class GameStateChangedListener implements Listener {
 
                 FurnaceBattleRoyale.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
                 FurnaceBattleRoyale.getWorld().setSpawnLocation(LocationUtils.getDownBlock(new Location(FurnaceBattleRoyale.getWorld(), 0, 240, 0)));
-
-                new ScoreboardUpdateTask();
-
 
                 for(FBRPlayer fbrPlayer : PlayerManager.getPlayersList())
                 {
@@ -113,6 +114,29 @@ public class GameStateChangedListener implements Listener {
             case PLAYING_3:
 
                 break;
+            case ENDED:
+                FBRTeam wonTeam = TeamManager.getAliveFBRTeams().get(0);
+
+                StringBuilder players = new StringBuilder();
+
+                for(FBRPlayer fbrPlayer : wonTeam.getMembers())
+                {
+                    players.append(fbrPlayer.getName()).append(" ");
+                    fbrPlayer.getPlayer().setInvulnerable(true);
+                }
+                String playersStr = players.toString();
+
+                for(Player player : Bukkit.getOnlinePlayers())
+                {
+                    player.sendTitle("Команда " + wonTeam.getLeader().getName() + " побеждает", "Состав: " + playersStr, 10, 40, 10);
+                }
+                break;
+
+        }
+
+        for(FBRTeam team : TeamManager.getFBRTeams())
+        {
+            team.updateScoreboardVisuals();
         }
 
         for(FBRPlayer fbrPlayer : PlayerManager.getPlayersList())

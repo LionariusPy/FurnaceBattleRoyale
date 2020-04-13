@@ -15,7 +15,7 @@ public class CreateTimerCommand implements CommandExecutor {
 
         FBRPlayer fbrPlayer = PlayerManager.getFBRPlayer((Player) sender);
 
-        fbrPlayer.setPlayerState(PlayerState.DEAD);
+        fbrPlayer.getTeam().updateScoreboardVisuals();
 
         return true;
     }

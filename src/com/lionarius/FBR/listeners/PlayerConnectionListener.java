@@ -4,6 +4,7 @@ import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.player.PlayerState;
 import com.lionarius.FBR.team.TeamManager;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,6 +38,10 @@ public class PlayerConnectionListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event)
     {
         Player player = event.getPlayer();
+
+        if(GameManager.getGameState() == GameState.WAITING) event.setJoinMessage(ChatColor.GOLD.toString() + "[DoomsDay] Игрок " + ChatColor.AQUA.toString() + player.getName() + ChatColor.GOLD.toString() + " присоединяется к лобби");
+        else event.setJoinMessage("");
+
         FBRPlayer fbrPlayer = PlayerManager.newOrGetFBRPlayer(player);
         fbrPlayer.updatePlayer();
 
@@ -61,7 +66,7 @@ public class PlayerConnectionListener implements Listener {
         }
 
         fbrPlayer.updateWorldBorder();
-        fbrPlayer.updatePlayerVisuals(fbrPlayer.getTeam().getScoreboard());
+        fbrPlayer.setPlayerScoreboard(fbrPlayer.getTeam().getScoreboard());
     }
 
     @EventHandler
@@ -73,5 +78,7 @@ public class PlayerConnectionListener implements Listener {
         {
             fbrPlayer.playerLeftMidgame();
         }
+
+        event.setQuitMessage("");
     }
 }

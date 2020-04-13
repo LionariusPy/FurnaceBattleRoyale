@@ -86,7 +86,6 @@ public class FBRPlayer {
     public void setPlayerState(PlayerState playerState) {
         if (playerState == this.state) return;
 
-        PlayerState oldPlayerState = this.state;
         this.state = playerState;
 
         Bukkit.getPluginManager().callEvent(new PlayerStateChangedEvent(this, playerState));
@@ -105,7 +104,7 @@ public class FBRPlayer {
         return currentGUI;
     }
 
-    public void updatePlayerVisuals(Scoreboard scoreboard) {
+    public void setPlayerScoreboard(Scoreboard scoreboard) {
         this.getPlayer().setScoreboard(scoreboard);
     }
 

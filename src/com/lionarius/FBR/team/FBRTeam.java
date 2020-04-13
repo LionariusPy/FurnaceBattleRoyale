@@ -47,20 +47,27 @@ public class FBRTeam {
 
         Team statusTeam = scoreboard.registerNewTeam("status_" + teamID);
         statusTeam.addEntry("Статус печки: ");
-        statusTeam.setSuffix(getFurnaceStatus());
-        scoreboardObjective.getScore("Статус печки: ").setScore(3);
+        statusTeam.setSuffix("");
+//        statusTeam.setSuffix(getFurnaceStatus());
+//        scoreboardObjective.getScore("Статус печки: ").setScore(3);
 
         scoreboardObjective.getScore(ChatColor.AQUA.toString()).setScore(2);
 
         Team timeTeam = scoreboard.registerNewTeam("time_" + teamID);
         timeTeam.addEntry(ChatColor.GOLD.toString() + "    ");
         timeTeam.setSuffix("");
-        scoreboardObjective.getScore("Время до следующего этапа: ").setScore(1);
-        scoreboardObjective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
+//        scoreboardObjective.getScore("Время до следующего этапа: ").setScore(1);
+//        scoreboardObjective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
+
+        Team modeTeam = scoreboard.registerNewTeam("mode_" + teamID);
+        modeTeam.addEntry("Режим: ");
+        modeTeam.setSuffix(ChatColor.GOLD.toString() + "ОДИНОЧНЫЙ");
 
         addPlayer(player);
         player.setLeader(true);
         setReadyToStart(false);
+
+        updateScoreboardVisuals();
     }
 
     public FBRPlayer getLeader()
@@ -108,7 +115,7 @@ public class FBRTeam {
         Objective objective = scoreboard.getObjective("hud");
         objective.getScore("    " + ChatColor.GREEN + player.getName()).setScore(15 - members.size());
 
-        player.updatePlayerVisuals(scoreboard);
+        player.setPlayerScoreboard(scoreboard);
     }
 
     public String getFurnaceStatus()
@@ -145,13 +152,13 @@ public class FBRTeam {
     }
 
 
-    public void updateTeamVisuals()
-    {
-        for(FBRPlayer fbrPlayer : members)
-        {
-            fbrPlayer.updatePlayerVisuals(scoreboard);
-        }
-    }
+//    public void updateTeamVisuals()
+//    {
+//        for(FBRPlayer fbrPlayer : members)
+//        {
+//            fbrPlayer.updatePlayerVisuals(scoreboard);
+//        }
+//    }
 
     public boolean isReadyToStart()
     {
@@ -168,7 +175,7 @@ public class FBRTeam {
                 CountdownTask.ExecutableCountdownAction update = (countdown) ->
                 {
                     if (countdown.getTimeInSeconds() % 5 == 0 || countdown.getTimeInSeconds() < 5)
-                        Bukkit.getServer().broadcastMessage(ChatColor.RED + "Игра начнется через " + countdown.getFormattedTime());
+                        Bukkit.broadcastMessage(ChatColor.RED + "Игра начнется через " + countdown.getFormattedTime());
                 };
 
                 CountdownTask.ExecutableCountdownAction end = (countdown) ->
@@ -190,11 +197,11 @@ public class FBRTeam {
         }
     }
 
-    public void setScoreboard(Scoreboard scoreboard)
-    {
-        this.scoreboard = scoreboard;
-        updateTeamVisuals();
-    }
+//    public void setScoreboard(Scoreboard scoreboard)
+//    {
+//        this.scoreboard = scoreboard;
+//        updateTeamVisuals();
+//    }
 
     public void playerDied(FBRPlayer fbrPlayer)
     {
@@ -237,5 +244,56 @@ public class FBRTeam {
             if(member.getState() != PlayerState.DEAD) aliveFbrPlayers.add(member);
         }
         return aliveFbrPlayers;
+    }
+
+    public void clearScoreboard()
+    {
+        Objective objective = scoreboard.getObjective("hud");
+        try {
+            objective.getScoreboard().resetScores("Статус печки: ");
+        } catch (NullPointerException ignored) {}
+
+        try {
+            objective.getScoreboard().resetScores("Время до следующего этапа: ");
+        } catch (NullPointerException ignored) {}
+
+        try {
+            objective.getScoreboard().resetScores(ChatColor.GOLD.toString() + "    ");
+        } catch (NullPointerException ignored) {}
+
+        try {
+            objective.getScoreboard().resetScores("Режим: ");
+        } catch (NullPointerException ignored) {}
+
+    }
+
+    public void updateScoreboardVisuals()
+    {
+        clearScoreboard();
+
+        Objective scoreboardObjective = scoreboard.getObjective("hud");
+
+        switch(GameManager.getGameState())
+        {
+            case WAITING:
+                scoreboardObjective.getScore("Режим: ").setScore(3);
+                break;
+            case PLAYING_1:
+                scoreboardObjective.getScore("Время до следующего этапа: ").setScore(1);
+                scoreboardObjective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
+                break;
+            case PLAYING_2:
+                scoreboardObjective.getScore("Время до следующего этапа: ").setScore(1);
+                scoreboardObjective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
+
+                scoreboardObjective.getScore("Статус печки: ").setScore(3);
+                break;
+            case PLAYING_3:
+                break;
+            case PLAYING_4:
+                break;
+            case ENDED:
+                break;
+        }
     }
 }
