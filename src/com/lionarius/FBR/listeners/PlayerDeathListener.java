@@ -7,8 +7,6 @@ import com.lionarius.FBR.player.PlayerManager;
 import com.lionarius.FBR.player.PlayerState;
 import com.lionarius.FBR.utils.LocationUtils;
 import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;

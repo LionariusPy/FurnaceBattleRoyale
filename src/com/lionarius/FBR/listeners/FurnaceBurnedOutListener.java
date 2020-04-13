@@ -18,7 +18,6 @@ public class FurnaceBurnedOutListener implements Listener {
         if(GameManager.getGameState() != GameState.ENDED) {
             World world = event.getFBRFurnace().getFurnaceBlock().getWorld();
 
-//            event.getFBRFurnace().getShulker().remove();
             world.createExplosion(event.getFBRFurnace().getFurnaceBlock().getLocation(), 2, true);
 
             for(FBRPlayer player : event.getFBRFurnace().getPlayers())

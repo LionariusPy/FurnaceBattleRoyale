@@ -28,7 +28,7 @@ public class FBRTeam {
     public FBRTeam(FBRPlayer player)
     {
         members = new ArrayList<FBRPlayer>();
-        teamID = TeamManager.GetNewTeamID();
+        teamID = TeamManager.getNewTeamID();
 
         scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 

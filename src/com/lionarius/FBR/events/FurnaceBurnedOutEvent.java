@@ -20,11 +20,6 @@ public class FurnaceBurnedOutEvent extends Event {
         return HANDLERS_LIST;
     }
 
-    public static HandlerList getHandlerList()
-    {
-        return HANDLERS_LIST;
-    }
-
     public FBRFurnace getFBRFurnace() {
         return furnace;
     }

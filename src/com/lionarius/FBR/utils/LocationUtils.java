@@ -15,8 +15,8 @@ import java.util.List;
 public class LocationUtils {
 
     public static final List<Material> leaves = new ArrayList<Material>(Arrays.asList(Material.ACACIA_LEAVES, Material.BIRCH_LEAVES,
-                                                                                         Material.DARK_OAK_LEAVES, Material.JUNGLE_LEAVES,
-                                                                                         Material.OAK_LEAVES, Material.SPRUCE_LEAVES));
+                                                                                  Material.DARK_OAK_LEAVES, Material.JUNGLE_LEAVES,
+                                                                                  Material.OAK_LEAVES, Material.SPRUCE_LEAVES));
 
     public static Location getDownBlock(Location location)
     {

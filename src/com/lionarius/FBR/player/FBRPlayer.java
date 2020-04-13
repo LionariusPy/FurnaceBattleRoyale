@@ -123,11 +123,11 @@ public class FBRPlayer {
             @Override
             public void run() {
                 if (GameManager.isChunkPhase() && state != PlayerState.DEAD) {
-                    WorldBorderUtils.SetWorldBorderSize(player, 16);
-                    WorldBorderUtils.SetWorldBorderLocation(player, team.getTeamChunkLocation());
+                    WorldBorderUtils.setWorldBorderSize(player, 16);
+                    WorldBorderUtils.setWorldBorderLocation(player, team.getTeamChunkLocation());
                 }
                 else
-                    WorldBorderUtils.ResetWorldBorder(player);
+                    WorldBorderUtils.resetWorldBorder(player);
             }
         }.runTaskLater(FurnaceBattleRoyale.getInstance(), 1L);
     }

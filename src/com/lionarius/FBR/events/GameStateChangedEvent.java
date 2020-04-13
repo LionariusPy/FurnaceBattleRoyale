@@ -22,11 +22,6 @@ public class GameStateChangedEvent extends Event {
         return HANDLERS_LIST;
     }
 
-    public static HandlerList getHandlerList()
-    {
-        return HANDLERS_LIST;
-    }
-
     public GameState getGameState() {
         return gameState;
     }

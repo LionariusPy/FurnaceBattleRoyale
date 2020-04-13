@@ -74,5 +74,4 @@ public class PlayerConnectionListener implements Listener {
             fbrPlayer.playerLeftMidgame();
         }
     }
-
 }

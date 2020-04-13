@@ -11,7 +11,7 @@ import java.lang.reflect.Field;
 
 public class WorldBorderUtils {
 
-    public static void SetWorldBorderLocation(Player player, Location location)
+    public static void setWorldBorderLocation(Player player, Location location)
     {
         EntityPlayer entityPlayer = ((CraftPlayer)player).getHandle();
 
@@ -25,7 +25,7 @@ public class WorldBorderUtils {
         entityPlayer.playerConnection.sendPacket(worldBorder);
     }
 
-    public static void SetWorldBorderSize(Player player, double size)
+    public static void setWorldBorderSize(Player player, double size)
     {
         EntityPlayer entityPlayer = ((CraftPlayer)player).getHandle();
 
@@ -38,7 +38,7 @@ public class WorldBorderUtils {
         entityPlayer.playerConnection.sendPacket(worldBorder);
     }
 
-    public static void ResetWorldBorder(Player player)
+    public static void resetWorldBorder(Player player)
     {
         EntityPlayer entityPlayer = ((CraftPlayer)player).getHandle();
 

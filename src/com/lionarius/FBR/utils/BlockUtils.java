@@ -23,6 +23,7 @@ public class BlockUtils {
                 shulker.setAI(false);
                 shulker.setGlowing(true);
                 shulker.setGravity(false);
+                shulker.setSilent(true);
                 shulker.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 2, false, false));
 
                 glowingBlocks.put(blockLocation, shulker);

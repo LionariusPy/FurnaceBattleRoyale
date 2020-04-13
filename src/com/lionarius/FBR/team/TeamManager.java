@@ -11,7 +11,7 @@ public class TeamManager {
 
     private static int lastTeamID = 0;
 
-    public static int GetNewTeamID()
+    public static int getNewTeamID()
     {
         lastTeamID++;
         return lastTeamID;
