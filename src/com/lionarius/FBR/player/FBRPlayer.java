@@ -89,7 +89,7 @@ public class FBRPlayer {
         PlayerState oldPlayerState = this.state;
         this.state = playerState;
 
-        Bukkit.getPluginManager().callEvent(new PlayerStateChangedEvent(this, oldPlayerState, playerState));
+        Bukkit.getPluginManager().callEvent(new PlayerStateChangedEvent(this, playerState));
     }
 
     public void openInventory(AbstractGUI inventory) {

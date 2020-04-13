@@ -23,7 +23,7 @@ public class GameManager {
         GameState oldGameState = GameManager.gameState;
         GameManager.gameState = gameState;
 
-        Bukkit.getPluginManager().callEvent(new GameStateChangedEvent(oldGameState, gameState));
+        Bukkit.getPluginManager().callEvent(new GameStateChangedEvent(gameState));
     }
 
     public static GameState getGameState() { return gameState; }

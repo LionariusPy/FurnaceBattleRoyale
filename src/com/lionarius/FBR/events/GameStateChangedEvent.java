@@ -9,12 +9,10 @@ public class GameStateChangedEvent extends Event {
     private static final HandlerList HANDLERS_LIST = new HandlerList();
 
     private GameState gameState;
-    private GameState oldGameState;
 
-    public GameStateChangedEvent(GameState oldGameState, GameState gameState)
+    public GameStateChangedEvent(GameState gameState)
     {
         this.gameState = gameState;
-        this.oldGameState = oldGameState;
     }
 
     @Override
@@ -25,10 +23,4 @@ public class GameStateChangedEvent extends Event {
     public GameState getGameState() {
         return gameState;
     }
-
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
-    }
-
-    public GameState getOldGameState() { return oldGameState; }
 }

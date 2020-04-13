@@ -10,13 +10,11 @@ public class PlayerStateChangedEvent extends Event {
     private static final HandlerList HANDLERS_LIST = new HandlerList();
 
     private FBRPlayer fbrPlayer;
-    private PlayerState oldPlayerState;
     private PlayerState playerState;
 
-    public PlayerStateChangedEvent(FBRPlayer fbrPlayer, PlayerState oldPlayerState, PlayerState playerState)
+    public PlayerStateChangedEvent(FBRPlayer fbrPlayer, PlayerState playerState)
     {
         this.fbrPlayer = fbrPlayer;
-        this.oldPlayerState = oldPlayerState;
         this.playerState = playerState;
     }
 
@@ -29,11 +27,6 @@ public class PlayerStateChangedEvent extends Event {
     public FBRPlayer getFBRPlayer()
     {
         return fbrPlayer;
-    }
-
-    public PlayerState getOldPlayerState()
-    {
-        return oldPlayerState;
     }
 
     public PlayerState getPlayerState()
