@@ -12,16 +12,18 @@ public class TeamMenuGUI extends AbstractGUI {
     public TeamMenuGUI(FBRPlayer fbrPlayer) {
         super(ChatColor.GREEN + "Командное меню", 9);
 
-        ItemStack ready = getReadyItem(fbrPlayer);
-        ExecutableGUIAction readyAction = (player, action, slot) ->
-        {
-            player.getTeam().setReadyToStart(!player.getTeam().isReadyToStart());
+        if(fbrPlayer.isLeader()) {
+            ItemStack ready = getReadyItem(fbrPlayer);
+            ExecutableGUIAction readyAction = (player, action, slot) ->
+            {
+                player.getTeam().setReadyToStart(!player.getTeam().isReadyToStart());
 
-            ItemStack readyItem = getReadyItem(player);
+                ItemStack readyItem = getReadyItem(player);
 
-            getInventory().setItem(7, readyItem);
-        };
-        setItem(ready, 7, readyAction);
+                getInventory().setItem(7, readyItem);
+            };
+            setItem(ready, 7, readyAction);
+        }
 
         if(GameConfigManager.MAX_PLAYERS_TEAM > 1) {
             ItemStack teamList = new ItemStack(Material.FURNACE);

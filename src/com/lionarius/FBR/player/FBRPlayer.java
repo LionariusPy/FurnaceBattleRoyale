@@ -28,7 +28,6 @@ public class FBRPlayer {
     private AbstractGUI currentGUI = null;
     private boolean isLeader;
     private PlayerOfflineTask offlineTask;
-
     private List<Invite> invites = new ArrayList<>();
 
     public FBRPlayer(Player player) {
@@ -133,5 +132,17 @@ public class FBRPlayer {
                     WorldBorderUtils.resetWorldBorder(player);
             }
         }.runTaskLater(FurnaceBattleRoyale.getInstance(), 1L);
+    }
+
+    public void invitePlayer(Invite invitation) {
+        invites.add(invitation);
+    }
+
+    public void declineInvite(Invite invitation) {
+        invites.remove(invitation);
+    }
+
+    public List<Invite> getInvites() {
+        return invites;
     }
 }

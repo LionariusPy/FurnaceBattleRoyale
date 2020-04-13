@@ -1,17 +1,19 @@
 package com.lionarius.FBR.player.invites;
 
 import com.lionarius.FBR.player.FBRPlayer;
+import com.lionarius.FBR.team.FBRTeam;
 
 public class Invite {
 
-    private FBRPlayer player;
+    private FBRTeam fromTeam;
 
-    public Invite(FBRPlayer player)
+    public Invite(FBRTeam fromTeam, FBRPlayer player)
     {
-        this.player = player;
+        this.fromTeam = fromTeam;
+        player.invitePlayer(this);
     }
 
-    public FBRPlayer getPlayer() {
-        return player;
+    public FBRTeam getFromTeam() {
+        return fromTeam;
     }
 }

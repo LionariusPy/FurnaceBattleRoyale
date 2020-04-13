@@ -25,7 +25,6 @@ public class FBRTeam {
     private Scoreboard scoreboard;
     private FBRFurnace furnace;
     private Chunk teamChunk;
-    private List<Invite> invites = new ArrayList<>();
 
     public FBRTeam(FBRPlayer player)
     {
@@ -297,17 +296,5 @@ public class FBRTeam {
             case ENDED:
                 break;
         }
-    }
-
-    public void invitePlayer(Invite invitation) {
-        invites.add(invitation);
-    }
-
-    public void declineInvite(Invite invitation) {
-        invites.remove(invitation);
-    }
-
-    public List<Invite> getInvites() {
-        return invites;
     }
 }
