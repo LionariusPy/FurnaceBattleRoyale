@@ -20,13 +20,12 @@ public class GameManager {
 
         if(GameManager.gameState == gameState) return;
 
-        GameState oldGameState = GameManager.gameState;
         GameManager.gameState = gameState;
 
         Bukkit.getPluginManager().callEvent(new GameStateChangedEvent(gameState));
     }
 
-    public static GameState getGameState() { return gameState; }
+    public static GameState getState() { return gameState; }
 
     public static CountdownTask getCountdownTask()
     {
@@ -65,9 +64,7 @@ public class GameManager {
 
     public static boolean isPVPAllowed()
     {
-        if(gameState == GameState.WAITING || gameState == GameState.ENDED || gameState == GameState.PLAYING_1) return false;
-
-        return true;
+        return gameState != GameState.WAITING && gameState != GameState.ENDED && gameState != GameState.PLAYING_1;
     }
 
     public static boolean isPortalsAllowed() {

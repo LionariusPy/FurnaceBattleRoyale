@@ -31,7 +31,7 @@ public class PlayerDeathListener implements Listener {
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event)
     {
-        if(GameManager.getGameState() != GameState.WAITING && GameManager.getGameState() != GameState.PLAYING_1)
+        if(GameManager.getState() != GameState.WAITING && GameManager.getState() != GameState.PLAYING_1)
             PlayerManager.getFBRPlayer(event.getEntity()).setPlayerState(PlayerState.DEAD);
     }
 }

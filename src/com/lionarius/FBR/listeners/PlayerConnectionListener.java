@@ -3,7 +3,6 @@ package com.lionarius.FBR.listeners;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.player.PlayerState;
-import com.lionarius.FBR.team.TeamManager;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
@@ -27,7 +26,7 @@ public class PlayerConnectionListener implements Listener {
             event.setKickMessage("Вы не можете присоединиться во время игры");
             event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
         }
-        if(PlayerManager.getFBRPlayer(player.getUniqueId()) == null && GameManager.getGameState() != GameState.WAITING)
+        if(PlayerManager.getFBRPlayer(player.getUniqueId()) == null && GameManager.getState() != GameState.WAITING)
         {
             event.setKickMessage("Вы не можете присоединиться к игре");
             event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
@@ -38,12 +37,12 @@ public class PlayerConnectionListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event)
     {
         Player player = event.getPlayer();
-
-        if(GameManager.getGameState() == GameState.WAITING) event.setJoinMessage(ChatColor.GOLD.toString() + "[DoomsDay] Игрок " + ChatColor.AQUA.toString() + player.getName() + ChatColor.GOLD.toString() + " присоединяется к лобби");
-        else event.setJoinMessage("");
-
         FBRPlayer fbrPlayer = PlayerManager.newOrGetFBRPlayer(player);
         fbrPlayer.updatePlayer();
+
+        if(GameManager.getState() == GameState.WAITING) event.setJoinMessage(ChatColor.GOLD.toString() + "[DoomsDay] Игрок " + ChatColor.AQUA.toString() + player.getName() + ChatColor.GOLD.toString() + " присоединяется к лобби");
+        else if(fbrPlayer.getState() == PlayerState.DEAD) event.setJoinMessage("");
+
 
         if(fbrPlayer.getState() == PlayerState.DEAD && player.getGameMode() != GameMode.SPECTATOR)
         {
@@ -54,7 +53,7 @@ public class PlayerConnectionListener implements Listener {
 //                GameManager.setGameState(GameState.ENDED);
         }
 
-        if(GameManager.getGameState() != GameState.WAITING && fbrPlayer.getState() == PlayerState.WAITING)
+        if(GameManager.getState() != GameState.WAITING && fbrPlayer.getState() == PlayerState.WAITING)
         {
             fbrPlayer.setPlayerState(PlayerState.DEAD);
             return;
@@ -74,11 +73,11 @@ public class PlayerConnectionListener implements Listener {
     {
         FBRPlayer fbrPlayer = PlayerManager.getFBRPlayer(event.getPlayer());
 
-        if(fbrPlayer.getState() == PlayerState.PLAYING && GameManager.getGameState() != GameState.ENDED)
+        if(fbrPlayer.getState() == PlayerState.PLAYING && GameManager.getState() != GameState.ENDED)
         {
             fbrPlayer.playerLeftMidgame();
         }
 
-        event.setQuitMessage("");
+        if(fbrPlayer.getState() == PlayerState.DEAD) event.setQuitMessage("");
     }
 }

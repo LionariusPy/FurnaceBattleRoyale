@@ -6,7 +6,6 @@ import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.team.FBRTeam;
 import com.lionarius.FBR.team.TeamManager;
-import org.bukkit.ChatColor;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
@@ -36,6 +35,6 @@ public class ScoreboardUpdateTask extends BukkitRunnable {
 //            else fbrTeam.getScoreboard().getTeam("mode"/* + teamID*/).setSuffix(ChatColor.GOLD.toString() + "КОМАНДНЫЙ");
         }
 
-        if(GameManager.getGameState() == GameState.ENDED) this.cancel();
+        if(GameManager.getState() == GameState.ENDED) this.cancel();
     }
 }

@@ -127,7 +127,7 @@ public class GameStateChangedListener implements Listener {
 
                 for(Player player : Bukkit.getOnlinePlayers())
                 {
-                    player.sendTitle("Команда " + wonTeam.getLeader().getName() + " побеждает", "Состав: " + playersStr, 10, 40, 10);
+                    player.sendTitle("Команда " + wonTeam.getLeader().getName() + " побеждает", "Состав: " + playersStr, 20, 100, 20);
                 }
                 break;
 

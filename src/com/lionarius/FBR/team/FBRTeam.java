@@ -6,7 +6,6 @@ import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.player.FBRFurnace;
 import com.lionarius.FBR.player.FBRPlayer;
 import com.lionarius.FBR.player.PlayerState;
-import com.lionarius.FBR.player.invites.Invite;
 import com.lionarius.FBR.tasks.CountdownTask;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -249,7 +248,7 @@ public class FBRTeam {
 
         Objective objective = scoreboard.getObjective("hud");
 
-        switch(GameManager.getGameState())
+        switch(GameManager.getState())
         {
             case WAITING:
                 objective.getScore(ChatColor.BLUE.toString()).setScore(1);

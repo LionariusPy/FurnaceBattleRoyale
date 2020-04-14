@@ -63,7 +63,7 @@ public class PlayerManager
 
     public static boolean canJoin(Player player)
     {
-        return GameManager.getGameState() == GameState.WAITING || player.isOp() || GameConfigManager.CAN_SPECTATE;
+        return GameManager.getState() == GameState.WAITING || player.isOp() || GameConfigManager.CAN_SPECTATE;
     }
 
     public static List<FBRPlayer> getAlivePlayers()

@@ -6,7 +6,6 @@ import com.lionarius.FBR.gui.AbstractGUI;
 import com.lionarius.FBR.gui.TeamMenuGUI;
 import com.lionarius.FBR.player.FBRPlayer;
 import com.lionarius.FBR.player.PlayerManager;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -49,13 +48,13 @@ public class GUIListener implements Listener {
             event.setCancelled(true);
         }
 
-        if(GameManager.getGameState() == GameState.WAITING) event.setCancelled(true);
+        if(GameManager.getState() == GameState.WAITING) event.setCancelled(true);
     }
 
     @EventHandler
     public void onDropItem(PlayerDropItemEvent event)
     {
-        if(GameManager.getGameState() == GameState.WAITING) event.setCancelled(true);
+        if(GameManager.getState() == GameState.WAITING) event.setCancelled(true);
     }
 
     @EventHandler
@@ -70,7 +69,7 @@ public class GUIListener implements Listener {
     @EventHandler
     public void onItemClick(PlayerInteractEvent event)
     {
-        if(GameManager.getGameState() == GameState.WAITING)
+        if(GameManager.getState() == GameState.WAITING)
         {
             if((event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) && event.getItem() != null)
             {
