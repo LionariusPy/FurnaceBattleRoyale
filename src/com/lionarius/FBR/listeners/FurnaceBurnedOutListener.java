@@ -15,7 +15,7 @@ public class FurnaceBurnedOutListener implements Listener {
     @EventHandler
     public void onFurnace(FurnaceBurnedOutEvent event)
     {
-        if(GameManager.getGameState() != GameState.ENDED) {
+        if(GameManager.getState() != GameState.ENDED) {
             World world = event.getFBRFurnace().getFurnaceBlock().getWorld();
 
             world.createExplosion(event.getFBRFurnace().getFurnaceBlock().getLocation(), 2, true);
