@@ -65,4 +65,16 @@ public class PlayerManager
     {
         return GameManager.getGameState() == GameState.WAITING || player.isOp() || GameConfigManager.CAN_SPECTATE;
     }
+
+    public static List<FBRPlayer> getAlivePlayers()
+    {
+        List<FBRPlayer> alivePlayers = new ArrayList<>();
+
+        for(FBRPlayer player : players)
+        {
+            if(player.getState() == PlayerState.PLAYING) alivePlayers.add(player);
+        }
+
+        return alivePlayers;
+    }
 }

@@ -10,7 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class TeamMenuGUI extends AbstractGUI {
 
     public TeamMenuGUI(FBRPlayer fbrPlayer) {
-        super(ChatColor.GREEN + "Командное меню", 9);
+        super(ChatColor.GREEN + "Меню", 9);
 
         if(fbrPlayer.isLeader()) {
             ItemStack ready = getReadyItem(fbrPlayer);

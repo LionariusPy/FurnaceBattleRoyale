@@ -16,12 +16,13 @@ import org.bukkit.scoreboard.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class FBRTeam {
 
     private List<FBRPlayer> members;
     private boolean isReadyToStart;
-    private int teamID;
+//    private int teamID;
     private Scoreboard scoreboard;
     private FBRFurnace furnace;
     private Chunk teamChunk;
@@ -29,11 +30,11 @@ public class FBRTeam {
     public FBRTeam(FBRPlayer player)
     {
         members = new ArrayList<FBRPlayer>();
-        teamID = TeamManager.getNewTeamID();
+//        teamID = TeamManager.getNewTeamID();
 
         scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
-        Team scoreboardTeam = scoreboard.registerNewTeam("team_" + teamID);
+        Team scoreboardTeam = scoreboard.registerNewTeam("team"/* + teamID*/);
         scoreboardTeam.setAllowFriendlyFire(false);
         scoreboardTeam.setColor(ChatColor.GREEN);
         scoreboardTeam.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.FOR_OTHER_TEAMS);
@@ -44,25 +45,24 @@ public class FBRTeam {
         scoreboardObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
         scoreboardObjective.getScore(ChatColor.AQUA + "Состав команды: ").setScore(15);
 
-        scoreboardObjective.getScore(ChatColor.BLUE.toString()).setScore(4);
+//        scoreboardObjective.getScore(ChatColor.BLUE.toString()).setScore(4);
 
-        Team statusTeam = scoreboard.registerNewTeam("status_" + teamID);
+        Team statusTeam = scoreboard.registerNewTeam("status"/* + teamID*/);
         statusTeam.addEntry("Статус печки: ");
         statusTeam.setSuffix("");
 //        statusTeam.setSuffix(getFurnaceStatus());
 //        scoreboardObjective.getScore("Статус печки: ").setScore(3);
 
-        scoreboardObjective.getScore(ChatColor.AQUA.toString()).setScore(2);
+//        scoreboardObjective.getScore(ChatColor.AQUA.toString()).setScore(2);
 
-        Team timeTeam = scoreboard.registerNewTeam("time_" + teamID);
+        Team timeTeam = scoreboard.registerNewTeam("time"/* + teamID*/);
         timeTeam.addEntry(ChatColor.GOLD.toString() + "    ");
         timeTeam.setSuffix("");
 //        scoreboardObjective.getScore("Время до следующего этапа: ").setScore(1);
 //        scoreboardObjective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
 
-        Team modeTeam = scoreboard.registerNewTeam("mode_" + teamID);
+        Team modeTeam = scoreboard.registerNewTeam("mode"/* + teamID*/);
         modeTeam.addEntry("Режим: ");
-        modeTeam.setSuffix(ChatColor.GOLD.toString() + "ОДИНОЧНЫЙ");
 
         addPlayer(player);
         player.setLeader(true);
@@ -80,10 +80,10 @@ public class FBRTeam {
         return null;
     }
 
-    public int getTeamID()
-    {
-        return this.teamID;
-    }
+//    public int getTeamID()
+//    {
+//        return this.teamID;
+//    }
 
     public void setFurnace(FBRFurnace furnace)
     {
@@ -101,7 +101,7 @@ public class FBRTeam {
 
     public void addPlayer(FBRPlayer player)
     {
-        scoreboard.getTeam("team_" + teamID).addEntry(player.getName());
+        scoreboard.getTeam("team"/* + teamID*/).addEntry(player.getName());
 
         if(player.getTeam() != null && player.getTeam() != this) {
             player.getTeam().removePlayer(player, false);
@@ -136,8 +136,8 @@ public class FBRTeam {
     {
         if(!members.contains(player)) return;
 
-        if(scoreboard.getTeam("team_" + teamID).hasEntry(player.getName()))
-            scoreboard.getTeam("team_" + teamID).removeEntry(player.getName());
+        if(scoreboard.getTeam("team"/* + teamID*/).hasEntry(player.getName()))
+            scoreboard.getTeam("team"/* + teamID*/).removeEntry(player.getName());
         members.remove(player);
 
         if(createNewTeam)
@@ -151,15 +151,6 @@ public class FBRTeam {
         Objective objective = scoreboard.getObjective("hud");
         objective.getScoreboard().resetScores("    " + ChatColor.GREEN + player.getName());
     }
-
-
-//    public void updateTeamVisuals()
-//    {
-//        for(FBRPlayer fbrPlayer : members)
-//        {
-//            fbrPlayer.updatePlayerVisuals(scoreboard);
-//        }
-//    }
 
     public boolean isReadyToStart()
     {
@@ -197,12 +188,6 @@ public class FBRTeam {
             GameManager.stopCountdownTask();
         }
     }
-
-//    public void setScoreboard(Scoreboard scoreboard)
-//    {
-//        this.scoreboard = scoreboard;
-//        updateTeamVisuals();
-//    }
 
     public void playerDied(FBRPlayer fbrPlayer)
     {
@@ -250,44 +235,41 @@ public class FBRTeam {
     public void clearScoreboard()
     {
         Objective objective = scoreboard.getObjective("hud");
-        try {
-            objective.getScoreboard().resetScores("Статус печки: ");
-        } catch (NullPointerException ignored) {}
 
-        try {
-            objective.getScoreboard().resetScores("Время до следующего этапа: ");
-        } catch (NullPointerException ignored) {}
-
-        try {
-            objective.getScoreboard().resetScores(ChatColor.GOLD.toString() + "    ");
-        } catch (NullPointerException ignored) {}
-
-        try {
-            objective.getScoreboard().resetScores("Режим: ");
-        } catch (NullPointerException ignored) {}
-
+        Set<String> scores = scoreboard.getEntries();
+        for(String score : scores)
+        {
+            if(objective.getScore(score).getScore() < 7) scoreboard.resetScores(score);
+        }
     }
 
     public void updateScoreboardVisuals()
     {
         clearScoreboard();
 
-        Objective scoreboardObjective = scoreboard.getObjective("hud");
+        Objective objective = scoreboard.getObjective("hud");
 
         switch(GameManager.getGameState())
         {
             case WAITING:
-                scoreboardObjective.getScore("Режим: ").setScore(3);
+                objective.getScore(ChatColor.BLUE.toString()).setScore(1);
+                objective.getScore("Режим: ").setScore(0);
+
+                if(GameConfigManager.MAX_PLAYERS_TEAM == 1) scoreboard.getTeam("mode").setSuffix(ChatColor.GOLD.toString() + "ОДИНОЧНЫЙ");
+                else scoreboard.getTeam("mode").setSuffix(ChatColor.GOLD.toString() + "КОМАНДНЫЙ");
+
                 break;
             case PLAYING_1:
-                scoreboardObjective.getScore("Время до следующего этапа: ").setScore(1);
-                scoreboardObjective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
+                objective.getScore(ChatColor.BLUE.toString()).setScore(2);
+                objective.getScore("Время до следующего этапа: ").setScore(1);
+                objective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
                 break;
             case PLAYING_2:
-                scoreboardObjective.getScore("Время до следующего этапа: ").setScore(1);
-                scoreboardObjective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
-
-                scoreboardObjective.getScore("Статус печки: ").setScore(3);
+                objective.getScore(ChatColor.BLUE.toString()).setScore(4);
+                objective.getScore("Статус печки: ").setScore(3);
+                objective.getScore(ChatColor.BLACK.toString()).setScore(2);
+                objective.getScore("Время до следующего этапа: ").setScore(1);
+                objective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
                 break;
             case PLAYING_3:
                 break;

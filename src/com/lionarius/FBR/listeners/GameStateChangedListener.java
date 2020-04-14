@@ -50,7 +50,7 @@ public class GameStateChangedListener implements Listener {
                 FurnaceBattleRoyale.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
                 FurnaceBattleRoyale.getWorld().setSpawnLocation(LocationUtils.getDownBlock(new Location(FurnaceBattleRoyale.getWorld(), 0, 240, 0)));
 
-                for(FBRPlayer fbrPlayer : PlayerManager.getPlayersList())
+                for(FBRPlayer fbrPlayer : PlayerManager.getAlivePlayers())
                 {
                     fbrPlayer.setPlayerState(PlayerState.PLAYING);
                 }
@@ -67,7 +67,7 @@ public class GameStateChangedListener implements Listener {
 
                 break;
             case PLAYING_2:
-                for(FBRTeam team : TeamManager.getFBRTeams())
+                for(FBRTeam team : TeamManager.getAliveFBRTeams())
                 {
                     team.setTeamChunk(team.getLeader().getPlayer().getLocation().getChunk());
 
@@ -133,7 +133,7 @@ public class GameStateChangedListener implements Listener {
 
         }
 
-        for(FBRTeam team : TeamManager.getFBRTeams())
+        for(FBRTeam team : TeamManager.getAliveFBRTeams())
         {
             team.updateScoreboardVisuals();
         }

@@ -26,14 +26,14 @@ public class ScoreboardUpdateTask extends BukkitRunnable {
 
         for(FBRTeam fbrTeam : teams)
         {
-            int teamID = fbrTeam.getTeamID();
+//            int teamID = fbrTeam.getTeamID();
 
             if(GameManager.getCountdownTask() != null)
-                fbrTeam.getScoreboard().getTeam("time_" + teamID).setSuffix(GameManager.getCountdownTask().getFormattedTime());
-            fbrTeam.getScoreboard().getTeam("status_" + teamID).setSuffix(fbrTeam.getFurnaceStatus());
+                fbrTeam.getScoreboard().getTeam("time"/* + teamID*/).setSuffix(GameManager.getCountdownTask().getFormattedTime());
+            fbrTeam.getScoreboard().getTeam("status"/* + teamID*/).setSuffix(fbrTeam.getFurnaceStatus());
 
-            if(fbrTeam.getMembers().size() == 1) fbrTeam.getScoreboard().getTeam("mode_" + teamID).setSuffix(ChatColor.GOLD.toString() + "ОДИНОЧНЫЙ");
-            else fbrTeam.getScoreboard().getTeam("mode_" + teamID).setSuffix(ChatColor.GOLD.toString() + "КОМАНДНЫЙ");
+//            if(fbrTeam.getMembers().size() == 1) fbrTeam.getScoreboard().getTeam("mode"/* + teamID*/).setSuffix(ChatColor.GOLD.toString() + "ОДИНОЧНЫЙ");
+//            else fbrTeam.getScoreboard().getTeam("mode"/* + teamID*/).setSuffix(ChatColor.GOLD.toString() + "КОМАНДНЫЙ");
         }
 
         if(GameManager.getGameState() == GameState.ENDED) this.cancel();

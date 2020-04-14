@@ -50,6 +50,7 @@ public class GameConfigManager {
     private void loadConfig(FurnaceBattleRoyale plugin)
     {
         MAX_PLAYERS_TEAM = plugin.getConfig().getInt("game.team.max_players");
+        if(MAX_PLAYERS_TEAM > 8) MAX_PLAYERS_TEAM = 8;
 
         switch (Objects.requireNonNull(plugin.getConfig().getString("game.furnace.type")).toLowerCase())
         {
