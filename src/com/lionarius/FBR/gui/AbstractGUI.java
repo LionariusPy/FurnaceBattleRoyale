@@ -11,8 +11,8 @@ import java.util.Map;
 
 public abstract class AbstractGUI {
 
-    private Inventory inventory;
-    private Map<Integer, ExecutableGUIAction> actionMap = new HashMap<Integer, ExecutableGUIAction>();
+    private final Inventory inventory;
+    private final Map<Integer, ExecutableGUIAction> actionMap = new HashMap<Integer, ExecutableGUIAction>();
 
     public AbstractGUI(String title, int slots)
     {

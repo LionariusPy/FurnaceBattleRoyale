@@ -9,13 +9,13 @@ import java.util.List;
 
 public class TeamManager {
 
-    private static int lastTeamID = 0;
+//    private static int lastTeamID = 0;
 
-    public static int getNewTeamID()
-    {
-        lastTeamID++;
-        return lastTeamID;
-    }
+//    public static int getNewTeamID()
+//    {
+//        lastTeamID++;
+//        return lastTeamID;
+//    }
 
     public static List<FBRTeam> getFBRTeams()
     {

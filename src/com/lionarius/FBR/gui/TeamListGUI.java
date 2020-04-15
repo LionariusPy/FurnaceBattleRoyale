@@ -11,10 +11,14 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 public class TeamListGUI extends AbstractGUI {
 
+    public int page;
+
     public TeamListGUI(FBRPlayer fbrPlayer, int page) {
         super(ChatColor.AQUA + "Список команд", 9*6);
 
-        int maxPages = (int) Math.ceil(TeamManager.getFBRTeams().size() / 45);
+        this.page = page;
+
+        int maxPages = (int) Math.ceil((float)TeamManager.getFBRTeams().size() / 45);
 
         ExecutableGUIAction teamAction = (player, action, slot) ->
         {
@@ -41,7 +45,7 @@ public class TeamListGUI extends AbstractGUI {
 
         ExecutableGUIAction menuAction = (player, action, slot) ->
         {
-            new TeamMenuGUI(player);
+            new MenuGUI(player);
         };
         setItem(getMenuItem(), 49, menuAction);
 

@@ -6,7 +6,7 @@ import org.bukkit.Material;
 import java.io.File;
 import java.util.Objects;
 
-public class GameConfigManager {
+public class ConfigManager {
 
     public static int MAX_PLAYERS_TEAM;
     public static Material FURNACE_TYPE;
@@ -17,7 +17,7 @@ public class GameConfigManager {
     public static boolean IS_PORTALS_ENABLED;
     public static int MAX_OFFLINE_TIME;
 
-    public GameConfigManager()
+    public ConfigManager()
     {
         FurnaceBattleRoyale plugin = FurnaceBattleRoyale.getInstance();
 
@@ -66,7 +66,7 @@ public class GameConfigManager {
         TASK_UPDATE_TIME = plugin.getConfig().getLong("game.task_update_time_ticks");
         FURNACE_TIME_WITHOUT_SMELTING = plugin.getConfig().getInt("game.furnace.time_without_smelting");
         CAN_SPECTATE = plugin.getConfig().getBoolean("game.player.can_spectate");
-        MAP_SIZE_IN_CHUNKS = (int) Math.ceil(plugin.getConfig().getInt("game.map_size") / 16);
+        MAP_SIZE_IN_CHUNKS = (int) Math.ceil(plugin.getConfig().getDouble("game.map_size") / 16);
         IS_PORTALS_ENABLED = plugin.getConfig().getBoolean("game.is_portals_enabled");
         MAX_OFFLINE_TIME = plugin.getConfig().getInt("game.player.max_offline_time");
     }

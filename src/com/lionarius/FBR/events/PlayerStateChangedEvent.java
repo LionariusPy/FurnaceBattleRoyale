@@ -9,8 +9,8 @@ public class PlayerStateChangedEvent extends Event {
 
     private static final HandlerList HANDLERS_LIST = new HandlerList();
 
-    private FBRPlayer fbrPlayer;
-    private PlayerState playerState;
+    private final FBRPlayer fbrPlayer;
+    private final PlayerState playerState;
 
     public PlayerStateChangedEvent(FBRPlayer fbrPlayer, PlayerState playerState)
     {

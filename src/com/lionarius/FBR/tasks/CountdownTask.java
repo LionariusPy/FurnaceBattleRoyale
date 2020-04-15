@@ -7,8 +7,8 @@ import com.lionarius.FBR.FurnaceBattleRoyale;
 public class CountdownTask extends BukkitRunnable {
 
     private long time;
-    private ExecutableCountdownAction updateAction;
-    private ExecutableCountdownAction stopAction;
+    private final ExecutableCountdownAction updateAction;
+    private final ExecutableCountdownAction stopAction;
 
     public CountdownTask(long seconds, ExecutableCountdownAction updateAction, ExecutableCountdownAction stopAction) {
         this.time = seconds;
@@ -21,6 +21,7 @@ public class CountdownTask extends BukkitRunnable {
     public CountdownTask(long seconds, ExecutableCountdownAction updateAction) {
         this.time = seconds;
         this.updateAction = updateAction;
+        this.stopAction = null;
 
         this.runTaskTimer(FurnaceBattleRoyale.getInstance(), 0L, 20L);
     }

@@ -1,6 +1,6 @@
 package com.lionarius.FBR.utils;
 
-import com.lionarius.FBR.config.GameConfigManager;
+import com.lionarius.FBR.config.ConfigManager;
 import com.lionarius.FBR.team.FBRTeam;
 import com.lionarius.FBR.team.TeamManager;
 import org.bukkit.Chunk;
@@ -18,6 +18,8 @@ public class LocationUtils {
                                                                                   Material.DARK_OAK_LEAVES, Material.JUNGLE_LEAVES,
                                                                                   Material.OAK_LEAVES, Material.SPRUCE_LEAVES));
 
+    public static List<Vector> spiralPattern;
+
     public static Location getDownBlock(Location location)
     {
         Location down = location;
@@ -31,9 +33,9 @@ public class LocationUtils {
 
     public static boolean isChunkInBorder(Chunk chunk)
     {
-        int maxChunkLoc = Math.floorDiv(GameConfigManager.MAP_SIZE_IN_CHUNKS, 2);
+        int maxChunkLoc = Math.floorDiv(ConfigManager.MAP_SIZE_IN_CHUNKS, 2);
 
-        return (Math.abs(chunk.getX()) <= maxChunkLoc) && (Math.abs(chunk.getZ()) <= maxChunkLoc);
+        return (-maxChunkLoc <= chunk.getX() && chunk.getX() < maxChunkLoc) && (-maxChunkLoc <= chunk.getZ() && chunk.getZ() < maxChunkLoc);
     }
 
     public static boolean isUniqueChunkForTeam(FBRTeam fbrTeam)
@@ -51,12 +53,13 @@ public class LocationUtils {
     public static Chunk getClosestFreeChunk(Chunk target)
     {
         Chunk closestChunk = null;
-        int searchRadius = Math.floorDiv(GameConfigManager.MAP_SIZE_IN_CHUNKS, 2);
+//        int searchRadius = (int) Math.ceil((double) ConfigManager.MAP_SIZE_IN_CHUNKS / 2);
+        int searchRadius = ConfigManager.MAP_SIZE_IN_CHUNKS;
 
         int targetX = target.getX();
         int targetZ = target.getZ();
 
-        List<Vector> spiral = spiral(searchRadius);
+//        List<Vector> spiral = spiral(searchRadius);
 
         List<Chunk> chunkList = new ArrayList<Chunk>();
         for(FBRTeam team : TeamManager.getFBRTeams())
@@ -64,7 +67,7 @@ public class LocationUtils {
             chunkList.add(team.getTeamChunk());
         }
 
-        for(Vector vector : spiral)
+        for(Vector vector : spiralPattern)
         {
             int x = (int) vector.getX() + targetX;
             int z = (int) vector.getZ() + targetZ;
@@ -86,11 +89,7 @@ public class LocationUtils {
     {
         List<Vector> output = new ArrayList<Vector>();
 
-        int x = 0;
-        int y = 0;
-        int dx = 0;
-        int dy = -1;
-        int temp;
+        int x = 0, y = 0, dx = 0, dy = -1, temp;
 
         for(int i = 0; i < radius*radius; i++)
         {

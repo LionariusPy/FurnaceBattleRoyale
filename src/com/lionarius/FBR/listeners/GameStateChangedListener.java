@@ -1,7 +1,7 @@
 package com.lionarius.FBR.listeners;
 
 import com.lionarius.FBR.FurnaceBattleRoyale;
-import com.lionarius.FBR.config.GameConfigManager;
+import com.lionarius.FBR.config.ConfigManager;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.player.*;
@@ -30,10 +30,10 @@ public class GameStateChangedListener implements Listener {
                 new ScoreboardUpdateTask();
 
                 FurnaceBattleRoyale.getWorld().getWorldBorder().setCenter(0,0);
-                FurnaceBattleRoyale.getWorld().getWorldBorder().setSize(GameConfigManager.MAP_SIZE_IN_CHUNKS * 16);
+                FurnaceBattleRoyale.getWorld().getWorldBorder().setSize(ConfigManager.MAP_SIZE_IN_CHUNKS * 16);
 
                 FurnaceBattleRoyale.getNether().getWorldBorder().setCenter(0, 0);
-                FurnaceBattleRoyale.getNether().getWorldBorder().setSize(GameConfigManager.MAP_SIZE_IN_CHUNKS * 2);
+                FurnaceBattleRoyale.getNether().getWorldBorder().setSize(ConfigManager.MAP_SIZE_IN_CHUNKS * 2);
 
                 FurnaceBattleRoyale.getWorld().setSpawnLocation(0, 251, 0);
 
@@ -50,7 +50,7 @@ public class GameStateChangedListener implements Listener {
                 FurnaceBattleRoyale.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
                 FurnaceBattleRoyale.getWorld().setSpawnLocation(LocationUtils.getDownBlock(new Location(FurnaceBattleRoyale.getWorld(), 0, 240, 0)));
 
-                for(FBRPlayer fbrPlayer : PlayerManager.getAlivePlayers())
+                for(FBRPlayer fbrPlayer : PlayerManager.getPlayersList())
                 {
                     fbrPlayer.setPlayerState(PlayerState.PLAYING);
                 }
@@ -71,13 +71,13 @@ public class GameStateChangedListener implements Listener {
                 {
                     team.setTeamChunk(team.getLeader().getPlayer().getLocation().getChunk());
 
-                    if(!LocationUtils.isUniqueChunkForTeam(team)) {
+                    if(!LocationUtils.isUniqueChunkForTeam(team) || !LocationUtils.isChunkInBorder(team.getTeamChunk())) {
                         Chunk closestChunk = LocationUtils.getClosestFreeChunk(team.getTeamChunk());
 
                         if (closestChunk == null) {
                             team.getLeader().getPlayer().sendMessage(ChatColor.RED + "[ВНИМАНИЕ] Все чанки вокруг заняты, выбираем рандомный чанк.....");
-                            Chunk randomChunk = closestChunk.getWorld().getChunkAt(new Random().nextInt(GameConfigManager.MAP_SIZE_IN_CHUNKS) - GameConfigManager.MAP_SIZE_IN_CHUNKS / 2,
-                                    new Random().nextInt(GameConfigManager.MAP_SIZE_IN_CHUNKS) - GameConfigManager.MAP_SIZE_IN_CHUNKS / 2);
+                            Chunk randomChunk = closestChunk.getWorld().getChunkAt(new Random().nextInt(ConfigManager.MAP_SIZE_IN_CHUNKS) - ConfigManager.MAP_SIZE_IN_CHUNKS / 2,
+                                    new Random().nextInt(ConfigManager.MAP_SIZE_IN_CHUNKS) - ConfigManager.MAP_SIZE_IN_CHUNKS / 2);
 
                             closestChunk = LocationUtils.getClosestFreeChunk(randomChunk);
                         }
@@ -116,6 +116,8 @@ public class GameStateChangedListener implements Listener {
             case ENDED:
                 FBRTeam wonTeam = TeamManager.getAliveFBRTeams().get(0);
 
+                GameManager.stopCountdownTaskNoEnd();
+
                 StringBuilder players = new StringBuilder();
 
                 for(FBRPlayer fbrPlayer : wonTeam.getMembers())
@@ -143,7 +145,7 @@ public class GameStateChangedListener implements Listener {
 
         if(GameManager.isChunkPhase())
             GameManager.setPortalsAllowed(false);
-        else if(GameConfigManager.IS_PORTALS_ENABLED)
+        else if(ConfigManager.IS_PORTALS_ENABLED)
             GameManager.setPortalsAllowed(true);
     }
 

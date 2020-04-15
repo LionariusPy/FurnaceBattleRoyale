@@ -2,7 +2,6 @@ package com.lionarius.FBR.game;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
-import com.lionarius.FBR.FurnaceBattleRoyale;
 import com.lionarius.FBR.events.GameStateChangedEvent;
 import com.lionarius.FBR.tasks.CountdownTask;
 

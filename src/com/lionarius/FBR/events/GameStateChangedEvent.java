@@ -8,7 +8,7 @@ public class GameStateChangedEvent extends Event {
 
     private static final HandlerList HANDLERS_LIST = new HandlerList();
 
-    private GameState gameState;
+    private final GameState gameState;
 
     public GameStateChangedEvent(GameState gameState)
     {

@@ -1,14 +1,17 @@
-package com.lionarius.FBR.commands.TeamCommand;
+package com.lionarius.FBR.commands;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import com.lionarius.FBR.player.FBRPlayer;
 import com.lionarius.FBR.player.PlayerManager;
 
-public class TeamCommand implements CommandExecutor {
+import java.util.List;
+
+public class TeamCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player;
@@ -46,5 +49,10 @@ public class TeamCommand implements CommandExecutor {
         else fbrPlayer.getPlayer().sendMessage(ChatColor.RED + "You are not leader of your team");
 
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+        return null;
     }
 }

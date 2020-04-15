@@ -5,26 +5,25 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Furnace;
-import com.lionarius.FBR.FurnaceBattleRoyale;
-import com.lionarius.FBR.config.GameConfigManager;
+import com.lionarius.FBR.config.ConfigManager;
 import com.lionarius.FBR.tasks.FBRFurnaceTask;
 
 import java.util.List;
 
 public class FBRFurnace {
 
-    private Block furnaceBlock;
-    private FBRFurnaceTask updateTask;
-    private List<FBRPlayer> players;
-    private FBRTeam team;
+    private final Block furnaceBlock;
+    private final FBRFurnaceTask updateTask;
+    private final List<FBRPlayer> players;
+    private final FBRTeam team;
 
     public FBRFurnace(World world, Location location, List<FBRPlayer> players)
     {
-        setPlayers(players);
+        this.players = players;
         Block block = world.getBlockAt(location);
 
-        block.setType(GameConfigManager.FURNACE_TYPE);
-        setFurnaceBlock(block);
+        block.setType(ConfigManager.FURNACE_TYPE);
+        furnaceBlock = block;
 
         team = players.get(0).getTeam();
 
@@ -40,11 +39,6 @@ public class FBRFurnace {
 
     public Block getFurnaceBlock() { return furnaceBlock; }
 
-    public void setFurnaceBlock(Block furnaceBlock)
-    {
-        this.furnaceBlock = furnaceBlock;
-    }
-
     public short getBurnTime() { return ((Furnace) furnaceBlock.getState()).getBurnTime(); }
 
     public short getCookTime()
@@ -54,10 +48,6 @@ public class FBRFurnace {
 
     public List<FBRPlayer> getPlayers() {
         return players;
-    }
-
-    public void setPlayers(List<FBRPlayer> players) {
-        this.players = players;
     }
 
     public FBRFurnaceTask getUpdateTask() {

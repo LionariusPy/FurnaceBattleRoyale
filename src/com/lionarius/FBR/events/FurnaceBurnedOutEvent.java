@@ -8,7 +8,7 @@ public class FurnaceBurnedOutEvent extends Event {
 
     private static final HandlerList HANDLERS_LIST = new HandlerList();
 
-    private FBRFurnace furnace;
+    private final FBRFurnace furnace;
 
     public FurnaceBurnedOutEvent(FBRFurnace furnace)
     {

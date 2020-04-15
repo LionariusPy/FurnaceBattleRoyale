@@ -6,7 +6,10 @@ import com.lionarius.FBR.player.FBRPlayer;
 import com.lionarius.FBR.player.PlayerManager;
 import com.lionarius.FBR.player.PlayerState;
 import com.lionarius.FBR.utils.LocationUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -29,9 +32,12 @@ public class PlayerDeathListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent event)
-    {
-        if(GameManager.getState() != GameState.WAITING && GameManager.getState() != GameState.PLAYING_1)
-            PlayerManager.getFBRPlayer(event.getEntity()).setPlayerState(PlayerState.DEAD);
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        if (GameManager.getState() != GameState.WAITING && GameManager.getState() != GameState.PLAYING_1) {
+            Player player = event.getEntity();
+
+            PlayerManager.getFBRPlayer(player).setPlayerState(PlayerState.DEAD);
+//            Bukkit.broadcastMessage(player.getDisplayName() + " умер")
+        }
     }
 }

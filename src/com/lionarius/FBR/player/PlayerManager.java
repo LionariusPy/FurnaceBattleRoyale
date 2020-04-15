@@ -1,7 +1,7 @@
 package com.lionarius.FBR.player;
 
 import org.bukkit.entity.Player;
-import com.lionarius.FBR.config.GameConfigManager;
+import com.lionarius.FBR.config.ConfigManager;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 
@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class PlayerManager
 {
-    private static List<FBRPlayer> players = new ArrayList<FBRPlayer>();
+    private static final List<FBRPlayer> players = new ArrayList<FBRPlayer>();
 
     public static List<FBRPlayer> getPlayersList() { return players; }
 
@@ -63,7 +63,7 @@ public class PlayerManager
 
     public static boolean canJoin(Player player)
     {
-        return GameManager.getState() == GameState.WAITING || player.isOp() || GameConfigManager.CAN_SPECTATE;
+        return GameManager.getState() == GameState.WAITING || player.isOp() || ConfigManager.CAN_SPECTATE;
     }
 
     public static List<FBRPlayer> getAlivePlayers()

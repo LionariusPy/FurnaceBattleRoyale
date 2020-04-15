@@ -3,7 +3,7 @@ package com.lionarius.FBR.listeners;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.gui.AbstractGUI;
-import com.lionarius.FBR.gui.TeamMenuGUI;
+import com.lionarius.FBR.gui.MenuGUI;
 import com.lionarius.FBR.player.FBRPlayer;
 import com.lionarius.FBR.player.PlayerManager;
 import org.bukkit.Material;
@@ -77,7 +77,7 @@ public class GUIListener implements Listener {
 
                 if(event.getItem().getType() == Material.COMPASS)
                 {
-                    new TeamMenuGUI(fbrPlayer);
+                    new MenuGUI(fbrPlayer);
                 }
             }
         }

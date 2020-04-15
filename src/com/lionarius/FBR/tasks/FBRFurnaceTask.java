@@ -4,19 +4,19 @@ import com.lionarius.FBR.events.FurnaceBurnedOutEvent;
 import com.lionarius.FBR.player.FBRFurnace;
 import org.bukkit.scheduler.BukkitRunnable;
 import com.lionarius.FBR.FurnaceBattleRoyale;
-import com.lionarius.FBR.config.GameConfigManager;
+import com.lionarius.FBR.config.ConfigManager;
 
 public class FBRFurnaceTask extends BukkitRunnable {
 
-    private static final int maxTimeWithoutSmelting = GameConfigManager.FURNACE_TIME_WITHOUT_SMELTING * (int)(20L / GameConfigManager.TASK_UPDATE_TIME);
+    private static final int maxTimeWithoutSmelting = ConfigManager.FURNACE_TIME_WITHOUT_SMELTING * (int)(20L / ConfigManager.TASK_UPDATE_TIME);
 
-    private FBRFurnace furnace;
+    private final FBRFurnace furnace;
     private int timeWithoutSmelting = maxTimeWithoutSmelting;
 
     public FBRFurnaceTask(FBRFurnace furnace) {
         this.furnace = furnace;
 
-        this.runTaskTimer(FurnaceBattleRoyale.getInstance(), 0L, GameConfigManager.TASK_UPDATE_TIME);
+        this.runTaskTimer(FurnaceBattleRoyale.getInstance(), 0L, ConfigManager.TASK_UPDATE_TIME);
     }
 
     public int getFurnaceStatus() {
@@ -30,7 +30,7 @@ public class FBRFurnaceTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        if(furnace.getFurnaceBlock().getType() != GameConfigManager.FURNACE_TYPE || timeWithoutSmelting <= 0 || furnace.getBurnTime() <= 0 || furnace.getTeam().getAliveMembers().size() == 0)
+        if(furnace.getFurnaceBlock().getType() != ConfigManager.FURNACE_TYPE || timeWithoutSmelting <= 0 || furnace.getBurnTime() <= 0 || furnace.getTeam().getAliveMembers().size() == 0)
         {
             FurnaceBattleRoyale.getInstance().getServer().getPluginManager().callEvent(new FurnaceBurnedOutEvent(furnace));
 

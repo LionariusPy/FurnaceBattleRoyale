@@ -78,6 +78,6 @@ public class PlayerConnectionListener implements Listener {
             fbrPlayer.playerLeftMidgame();
         }
 
-        if(fbrPlayer.getState() == PlayerState.DEAD) event.setQuitMessage("");
+//        if(fbrPlayer.getState() == PlayerState.DEAD) event.setQuitMessage("");
     }
 }

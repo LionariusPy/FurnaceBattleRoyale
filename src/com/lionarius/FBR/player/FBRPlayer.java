@@ -13,22 +13,20 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.*;
 import com.lionarius.FBR.events.PlayerStateChangedEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class FBRPlayer {
 
     private Player player;
-    private String name;
-    private UUID uuid;
+    private final String name;
+    private final UUID uuid;
     private PlayerState state;
-    private FBRFurnace furnace;
+//    private FBRFurnace furnace;
     private FBRTeam team;
     private AbstractGUI currentGUI = null;
     private boolean isLeader;
     private PlayerOfflineTask offlineTask;
-    private List<Invite> invites = new ArrayList<>();
+    private final List<Invite> invites = new ArrayList<>();
 
     public FBRPlayer(Player player) {
         this.player = player;
@@ -51,13 +49,13 @@ public class FBRPlayer {
         this.team = team;
     }
 
-    public FBRFurnace getFurnace() {
-        return furnace;
-    }
+//    public FBRFurnace getFurnace() {
+//        return furnace;
+//    }
 
-    public void setFurnace(FBRFurnace furnace) {
-        this.furnace = furnace;
-    }
+//    public void setFurnace(FBRFurnace furnace) {
+//        this.furnace = furnace;
+//    }
 
     public Player getPlayer() {
         return player;
@@ -135,7 +133,18 @@ public class FBRPlayer {
     }
 
     public void invitePlayer(Invite invitation) {
-        invites.add(invitation);
+        boolean contains = false;
+
+        for(Invite invite : invites)
+        {
+            if (invitation.equals(invite)) {
+                contains = true;
+                break;
+            }
+        }
+
+        if(!contains)
+            invites.add(invitation);
     }
 
     public void declineInvite(Invite invitation) {

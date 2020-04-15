@@ -1,7 +1,7 @@
 package com.lionarius.FBR.tasks;
 
 import com.lionarius.FBR.FurnaceBattleRoyale;
-import com.lionarius.FBR.config.GameConfigManager;
+import com.lionarius.FBR.config.ConfigManager;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.team.FBRTeam;
@@ -13,7 +13,7 @@ import java.util.List;
 public class ScoreboardUpdateTask extends BukkitRunnable {
 
     public ScoreboardUpdateTask() {
-        this.runTaskTimer(FurnaceBattleRoyale.getInstance(), 0L, GameConfigManager.TASK_UPDATE_TIME);
+        this.runTaskTimer(FurnaceBattleRoyale.getInstance(), 0L, ConfigManager.TASK_UPDATE_TIME);
     }
 
     @Override

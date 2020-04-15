@@ -5,7 +5,7 @@ import com.lionarius.FBR.team.FBRTeam;
 
 public class Invite {
 
-    private FBRTeam fromTeam;
+    private final FBRTeam fromTeam;
 
     public Invite(FBRTeam fromTeam, FBRPlayer player)
     {
@@ -15,5 +15,20 @@ public class Invite {
 
     public FBRTeam getFromTeam() {
         return fromTeam;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Invite compare = (Invite) obj;
+
+        return compare.fromTeam == this.fromTeam;
     }
 }

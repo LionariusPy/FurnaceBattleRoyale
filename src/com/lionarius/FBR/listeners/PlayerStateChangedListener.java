@@ -1,7 +1,7 @@
 package com.lionarius.FBR.listeners;
 
 import com.lionarius.FBR.FurnaceBattleRoyale;
-import com.lionarius.FBR.config.GameConfigManager;
+import com.lionarius.FBR.config.ConfigManager;
 import com.lionarius.FBR.events.PlayerStateChangedEvent;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
@@ -35,7 +35,7 @@ public class PlayerStateChangedListener implements Listener {
                 ItemStack menuItem = new ItemStack(Material.COMPASS);
                 ItemMeta meta = menuItem.getItemMeta();
 
-                meta.setDisplayName(ChatColor.GREEN + "Командное меню");
+                meta.setDisplayName(ChatColor.GREEN + "Меню");
 
                 menuItem.setItemMeta(meta);
 
@@ -62,7 +62,9 @@ public class PlayerStateChangedListener implements Listener {
                     event.getFBRPlayer().updateWorldBorder();
                     event.getFBRPlayer().getTeam().playerDied(event.getFBRPlayer());
 
-                    if (!GameConfigManager.CAN_SPECTATE)
+                    player.getWorld().strikeLightningEffect(player.getLocation());
+
+                    if (!ConfigManager.CAN_SPECTATE)
                         player.kickPlayer("Вы умерли");
                 }
 

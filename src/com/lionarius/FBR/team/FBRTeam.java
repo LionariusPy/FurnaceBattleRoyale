@@ -1,6 +1,6 @@
 package com.lionarius.FBR.team;
 
-import com.lionarius.FBR.config.GameConfigManager;
+import com.lionarius.FBR.config.ConfigManager;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.player.FBRFurnace;
@@ -19,10 +19,10 @@ import java.util.Set;
 
 public class FBRTeam {
 
-    private List<FBRPlayer> members;
+    private final List<FBRPlayer> members;
     private boolean isReadyToStart;
 //    private int teamID;
-    private Scoreboard scoreboard;
+    private final Scoreboard scoreboard;
     private FBRFurnace furnace;
     private Chunk teamChunk;
 
@@ -84,18 +84,19 @@ public class FBRTeam {
 //        return this.teamID;
 //    }
 
-    public void setFurnace(FBRFurnace furnace)
-    {
-        this.furnace = furnace;
-        for (FBRPlayer player : members)
-        {
-            player.setFurnace(furnace);
-        }
-    }
+//    public void setFurnace(FBRFurnace furnace)
+//    {
+//        this.furnace = furnace;
+////        for (FBRPlayer player : members)
+////        {
+////            player.setFurnace(furnace);
+////        }
+//    }
 
     public void createFurnace(Location location)
     {
-        setFurnace(new FBRFurnace(location.getWorld() ,location, members));
+//        setFurnace(new FBRFurnace(location.getWorld() ,location, members));
+        this.furnace = new FBRFurnace(location.getWorld() ,location, members);
     }
 
     public void addPlayer(FBRPlayer player)
@@ -120,7 +121,7 @@ public class FBRTeam {
 
     public String getFurnaceStatus()
     {
-        if(furnace == null || furnace.getFurnaceBlock().getType() != GameConfigManager.FURNACE_TYPE || furnace.getUpdateTask().isCancelled()) return ChatColor.RED.toString() + ChatColor.BOLD.toString() + "НЕИЗВЕСТНО";
+        if(furnace == null || furnace.getFurnaceBlock().getType() != ConfigManager.FURNACE_TYPE || furnace.getUpdateTask().isCancelled()) return ChatColor.RED.toString() + ChatColor.BOLD.toString() + "НЕИЗВЕСТНО";
 
         switch (furnace.getUpdateTask().getFurnaceStatus())
         {
@@ -147,8 +148,7 @@ public class FBRTeam {
 
             members.get(0).setLeader(true);
         }
-        Objective objective = scoreboard.getObjective("hud");
-        objective.getScoreboard().resetScores("    " + ChatColor.GREEN + player.getName());
+        scoreboard.resetScores("    " + ChatColor.GREEN + player.getName());
     }
 
     public boolean isReadyToStart()
@@ -192,7 +192,7 @@ public class FBRTeam {
     {
         Objective objective = scoreboard.getObjective("hud");
         int score = objective.getScore("    " + ChatColor.GREEN + fbrPlayer.getName()).getScore();
-        objective.getScoreboard().resetScores("    " + ChatColor.GREEN + fbrPlayer.getName());
+        scoreboard.resetScores("    " + ChatColor.GREEN + fbrPlayer.getName());
 
         objective.getScore("    " + ChatColor.GRAY + fbrPlayer.getName()).setScore(score);
     }
@@ -254,7 +254,7 @@ public class FBRTeam {
                 objective.getScore(ChatColor.BLUE.toString()).setScore(1);
                 objective.getScore("Режим: ").setScore(0);
 
-                if(GameConfigManager.MAX_PLAYERS_TEAM == 1) scoreboard.getTeam("mode").setSuffix(ChatColor.GOLD.toString() + "ОДИНОЧНЫЙ");
+                if(ConfigManager.MAX_PLAYERS_TEAM == 1) scoreboard.getTeam("mode").setSuffix(ChatColor.GOLD.toString() + "ОДИНОЧНЫЙ");
                 else scoreboard.getTeam("mode").setSuffix(ChatColor.GOLD.toString() + "КОМАНДНЫЙ");
 
                 break;

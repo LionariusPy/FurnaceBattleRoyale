@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class BlockUtils {
 
-    private static Map<Location, LivingEntity> glowingBlocks = new HashMap<>();
+    private static final Map<Location, LivingEntity> glowingBlocks = new HashMap<>();
 
     public static void setGlow(Location blockLocation, boolean isGlowing)
     {

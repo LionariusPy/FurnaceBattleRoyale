@@ -1,17 +1,16 @@
 package com.lionarius.FBR;
 
-import com.lionarius.FBR.commands.CreateChunkBorderCommand.CreateChunkBorderCommand;
-import com.lionarius.FBR.commands.CreateChunkBorderCommand.CreateChunkBorderCommandCompletion;
-import com.lionarius.FBR.commands.CreateTimerCommand.CreateTimerCommand;
-import com.lionarius.FBR.commands.TeamCommand.TeamCommand;
-import com.lionarius.FBR.commands.TeamCommand.TeamCommandCompletion;
+import com.lionarius.FBR.commands.CreateChunkBorderCommand;
+import com.lionarius.FBR.commands.CreateTimerCommand;
+import com.lionarius.FBR.commands.TeamCommand;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.listeners.*;
+import com.lionarius.FBR.utils.LocationUtils;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.lionarius.FBR.config.GameConfigManager;
+import com.lionarius.FBR.config.ConfigManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +59,9 @@ public class FurnaceBattleRoyale extends JavaPlugin {
     {
         instance = this;
 
-        new GameConfigManager();
+        new ConfigManager();
+        //create spiral pattern
+        LocationUtils.spiralPattern = LocationUtils.spiral(ConfigManager.MAP_SIZE_IN_CHUNKS);
 
         this.getServer().getPluginManager().registerEvents(new PlayerConnectionListener(), this);
         this.getServer().getPluginManager().registerEvents(new FurnaceBurnedOutListener(), this);
@@ -78,11 +79,11 @@ public class FurnaceBattleRoyale extends JavaPlugin {
     public void setupCommands()
     {
         this.getCommand("customborder").setExecutor(new CreateChunkBorderCommand());
-        this.getCommand("customborder").setTabCompleter(new CreateChunkBorderCommandCompletion());
+        this.getCommand("customborder").setTabCompleter(new CreateChunkBorderCommand());
 
         this.getCommand("timer").setExecutor(new CreateTimerCommand());
 
         this.getCommand("fbrteam").setExecutor(new TeamCommand());
-        this.getCommand("fbrteam").setTabCompleter(new TeamCommandCompletion());
+        this.getCommand("fbrteam").setTabCompleter(new TeamCommand());
     }
 }
