@@ -99,7 +99,7 @@ public class FBRPlayer {
     }
 
     public void closeInventory() {
-        player.closeInventory();
+//        player.closeInventory();
         currentGUI = null;
     }
 

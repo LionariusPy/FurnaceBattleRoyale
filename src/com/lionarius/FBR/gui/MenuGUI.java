@@ -50,7 +50,7 @@ public class MenuGUI extends AbstractGUI {
         if(fbrPlayer.getInvites().size() > 0) {
             ItemStack inviteList = new ItemStack(Material.WRITTEN_BOOK);
             ItemMeta inviteListItemMeta = inviteList.getItemMeta();
-            inviteListItemMeta.setDisplayName(ChatColor.AQUA + "Список приглашений");
+            inviteListItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Приглашения");
             inviteList.setItemMeta(inviteListItemMeta);
             ExecutableGUIAction inviteListAction = (player, action, slot) ->
             {

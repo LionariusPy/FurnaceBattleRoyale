@@ -16,7 +16,7 @@ public class InvitesGUI extends AbstractGUI{
     public int page;
 
     public InvitesGUI(FBRPlayer fbrPlayer, int page) {
-        super("Приглашения", 9*5);
+        super(ChatColor.LIGHT_PURPLE + "Приглашения", 9*5);
         this.page = page;
 
         int maxPages = (int) Math.ceil((float) fbrPlayer.getInvites().size() / 36);
@@ -28,7 +28,7 @@ public class InvitesGUI extends AbstractGUI{
             Invite clickedInvite = player.getInvites().get(slot + currentGUI.page * 36);
             if(action == InventoryAction.PICKUP_ALL) {
                 player.acceptInvite(clickedInvite);
-                player.closeInventory();
+                player.getPlayer().closeInventory();
                 player.getPlayer().sendMessage("Вы приняли приглашение игрока " + clickedInvite.getFromTeam().getLeader().getName());
             }
             else if(action == InventoryAction.PICKUP_HALF) {

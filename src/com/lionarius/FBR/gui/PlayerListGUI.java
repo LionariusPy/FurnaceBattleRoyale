@@ -16,7 +16,7 @@ public class PlayerListGUI extends AbstractGUI{
     public int page;
 
     public PlayerListGUI(FBRPlayer fbrPlayer, int page) {
-        super(ChatColor.AQUA + "Список команд", 9*6);
+        super(ChatColor.AQUA + "Список игроков", 9*6);
         this.page = page;
 
         int maxPages = (int) Math.ceil((float)PlayerManager.getPlayersList().size() / 45);

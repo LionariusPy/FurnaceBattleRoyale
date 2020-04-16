@@ -14,7 +14,7 @@ public class TeamListGUI extends AbstractGUI {
     public int page;
 
     public TeamListGUI(FBRPlayer fbrPlayer, int page) {
-        super(ChatColor.AQUA + "Список команд", 9*6);
+        super(ChatColor.GREEN + "Список команд", 9*6);
 
         this.page = page;
 
