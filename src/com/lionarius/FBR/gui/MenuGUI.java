@@ -45,7 +45,18 @@ public class MenuGUI extends AbstractGUI {
                 new PlayerListGUI(player, 0);
             };
             setItem(playerList, 2, playerListAction);
+        }
 
+        if(fbrPlayer.getInvites().size() > 0) {
+            ItemStack inviteList = new ItemStack(Material.WRITTEN_BOOK);
+            ItemMeta inviteListItemMeta = inviteList.getItemMeta();
+            inviteListItemMeta.setDisplayName(ChatColor.AQUA + "Список приглашений");
+            inviteList.setItemMeta(inviteListItemMeta);
+            ExecutableGUIAction inviteListAction = (player, action, slot) ->
+            {
+                new InvitesGUI(player, 0);
+            };
+            setItem(inviteList, 4, inviteListAction);
         }
 
         fbrPlayer.openInventory(this);

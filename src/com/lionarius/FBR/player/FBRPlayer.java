@@ -99,6 +99,7 @@ public class FBRPlayer {
     }
 
     public void closeInventory() {
+        player.closeInventory();
         currentGUI = null;
     }
 
@@ -132,23 +133,32 @@ public class FBRPlayer {
         }.runTaskLater(FurnaceBattleRoyale.getInstance(), 1L);
     }
 
-    public void invitePlayer(Invite invitation) {
+    public void invitePlayer(Invite invite) {
         boolean contains = false;
 
-        for(Invite invite : invites)
+        for(Invite invitation : invites)
         {
-            if (invitation.equals(invite)) {
+            if (invite.equals(invitation)) {
                 contains = true;
                 break;
             }
         }
 
         if(!contains)
-            invites.add(invitation);
+            invites.add(invite);
     }
 
-    public void declineInvite(Invite invitation) {
-        invites.remove(invitation);
+    public void acceptInvite(Invite invite)
+    {
+        if(invites.contains(invite))
+        {
+            invite.getFromTeam().addPlayer(this);
+        }
+        invites.remove(invite);
+    }
+
+    public void declineInvite(Invite invite) {
+        invites.remove(invite);
     }
 
     public List<Invite> getInvites() {

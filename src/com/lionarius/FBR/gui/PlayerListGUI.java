@@ -26,9 +26,11 @@ public class PlayerListGUI extends AbstractGUI{
             PlayerListGUI currentGUI = (PlayerListGUI) player.getCurrentGUI();
 
             FBRPlayer clickedPlayer = PlayerManager.getPlayersList().get(slot + currentGUI.page * 45);
-            new Invite(player.getTeam(), clickedPlayer);
+            if(clickedPlayer.getTeam() != player.getTeam()) {
+                new Invite(player.getTeam(), clickedPlayer);
 
-            player.getPlayer().sendMessage(ChatColor.AQUA.toString() + "Приглашение игроку " + ChatColor.GOLD.toString() + clickedPlayer.getName() + ChatColor.AQUA.toString() + " отправлено");
+                player.getPlayer().sendMessage(ChatColor.AQUA.toString() + "Приглашение игроку " + ChatColor.GOLD.toString() + clickedPlayer.getName() + ChatColor.AQUA.toString() + " отправлено");
+            }
         };
 
         for(int i = 45*page; i < Math.min(PlayerManager.getPlayersList().size(), 45*(page + 1)); i++)
