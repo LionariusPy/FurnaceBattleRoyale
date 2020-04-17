@@ -11,7 +11,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
-import org.bukkit.scoreboard.*;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -253,10 +256,8 @@ public class FBRTeam {
             case WAITING:
                 objective.getScore(ChatColor.BLUE.toString()).setScore(1);
                 objective.getScore("Режим: ").setScore(0);
-
                 if(ConfigManager.MAX_PLAYERS_TEAM == 1) scoreboard.getTeam("mode").setSuffix(ChatColor.GOLD.toString() + "ОДИНОЧНЫЙ");
                 else scoreboard.getTeam("mode").setSuffix(ChatColor.GOLD.toString() + "КОМАНДНЫЙ");
-
                 break;
             case PLAYING_1:
                 objective.getScore(ChatColor.BLUE.toString()).setScore(2);
@@ -264,12 +265,16 @@ public class FBRTeam {
                 objective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
                 break;
             case PLAYING_2:
-            case PLAYING_3:
                 objective.getScore(ChatColor.BLUE.toString()).setScore(4);
                 objective.getScore("Статус печки: ").setScore(3);
                 objective.getScore(ChatColor.BLACK.toString()).setScore(2);
                 objective.getScore("Время до следующего этапа: ").setScore(1);
                 objective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
+                break;
+            case PLAYING_3:
+                objective.getScore(ChatColor.BLUE.toString()).setScore(4);
+                objective.getScore("Статус печки: ").setScore(3);
+                objective.getScore(ChatColor.BLACK.toString()).setScore(2);
                 break;
             case PLAYING_4:
             case ENDED:

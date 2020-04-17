@@ -44,7 +44,6 @@ public class GameStateChangedListener implements Listener {
                 createLobby(FurnaceBattleRoyale.getWorld(), 10, 250);
 
                 break;
-
             case PLAYING_1:
                 HandlerList.unregisterAll(GUIListener.getInstance());
 
@@ -112,7 +111,6 @@ public class GameStateChangedListener implements Listener {
 
                 break;
             case PLAYING_3:
-
                 break;
             case ENDED:
                 FBRTeam wonTeam = TeamManager.getAliveFBRTeams().get(0);
