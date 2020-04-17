@@ -3,14 +3,15 @@ package com.lionarius.FBR;
 import com.lionarius.FBR.commands.CreateChunkBorderCommand;
 import com.lionarius.FBR.commands.CreateTimerCommand;
 import com.lionarius.FBR.commands.TeamCommand;
+import com.lionarius.FBR.config.ConfigManager;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.listeners.*;
 import com.lionarius.FBR.utils.LocationUtils;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.lionarius.FBR.config.ConfigManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,24 +20,24 @@ public class FurnaceBattleRoyale extends JavaPlugin {
 
     public static FurnaceBattleRoyale instance;
 
-    public static FurnaceBattleRoyale getInstance() {return instance;};
+    public static FurnaceBattleRoyale getInstance() {
+        return instance;
+    }
 
-    public static World getWorld()
-    {
+    public static World getWorld() {
         return Bukkit.getWorld("world");
     }
-    public static World getNether()
-    {
+
+    public static World getNether() {
         return Bukkit.getWorld("world_nether");
     }
-    public static World getEnd()
-    {
+
+    public static World getEnd() {
         return Bukkit.getWorld("world_the_end");
     }
 
     @Override
-    public void onLoad()
-    {
+    public void onLoad() {
         try {
             FileUtils.deleteDirectory(new File("." + File.separator + "world"));
         } catch (IOException e) {
@@ -55,8 +56,7 @@ public class FurnaceBattleRoyale extends JavaPlugin {
     }
 
     @Override
-    public void onEnable()
-    {
+    public void onEnable() {
         instance = this;
 
         new ConfigManager();
@@ -76,8 +76,7 @@ public class FurnaceBattleRoyale extends JavaPlugin {
         setupCommands();
     }
 
-    public void setupCommands()
-    {
+    public void setupCommands() {
         this.getCommand("customborder").setExecutor(new CreateChunkBorderCommand());
         this.getCommand("customborder").setTabCompleter(new CreateChunkBorderCommand());
 

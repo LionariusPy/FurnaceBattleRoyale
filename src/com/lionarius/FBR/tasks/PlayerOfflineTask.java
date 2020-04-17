@@ -8,7 +8,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class PlayerOfflineTask extends BukkitRunnable {
 
-    private static final int maxOfflineTime = ConfigManager.MAX_OFFLINE_TIME;
+//    private static final int maxOfflineTime = ConfigManager.MAX_OFFLINE_TIME;
 
     private final FBRPlayer fbrPlayer;
     private int currentOfflineTime = ConfigManager.MAX_OFFLINE_TIME;

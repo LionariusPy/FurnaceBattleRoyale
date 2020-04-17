@@ -1,6 +1,7 @@
 package com.lionarius.FBR.player;
 
 import com.lionarius.FBR.FurnaceBattleRoyale;
+import com.lionarius.FBR.events.PlayerStateChangedEvent;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.gui.AbstractGUI;
 import com.lionarius.FBR.player.invites.Invite;
@@ -10,10 +11,11 @@ import com.lionarius.FBR.utils.WorldBorderUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scoreboard.*;
-import com.lionarius.FBR.events.PlayerStateChangedEvent;
+import org.bukkit.scoreboard.Scoreboard;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class FBRPlayer {
 
@@ -21,12 +23,11 @@ public class FBRPlayer {
     private final String name;
     private final UUID uuid;
     private PlayerState state;
-//    private FBRFurnace furnace;
-    private FBRTeam team;
-    private AbstractGUI currentGUI = null;
     private boolean isLeader;
-    private PlayerOfflineTask offlineTask;
+    private FBRTeam team;
     private final List<Invite> invites = new ArrayList<>();
+    private AbstractGUI currentGUI = null;
+    private PlayerOfflineTask offlineTask;
 
     public FBRPlayer(Player player) {
         this.player = player;
@@ -48,14 +49,6 @@ public class FBRPlayer {
     public void setTeam(FBRTeam team) {
         this.team = team;
     }
-
-//    public FBRFurnace getFurnace() {
-//        return furnace;
-//    }
-
-//    public void setFurnace(FBRFurnace furnace) {
-//        this.furnace = furnace;
-//    }
 
     public Player getPlayer() {
         return player;
@@ -99,7 +92,6 @@ public class FBRPlayer {
     }
 
     public void closeInventory() {
-//        player.closeInventory();
         currentGUI = null;
     }
 
@@ -136,22 +128,19 @@ public class FBRPlayer {
     public void invitePlayer(Invite invite) {
         boolean contains = false;
 
-        for(Invite invitation : invites)
-        {
+        for (Invite invitation : invites) {
             if (invite.equals(invitation)) {
                 contains = true;
                 break;
             }
         }
 
-        if(!contains)
+        if (!contains)
             invites.add(invite);
     }
 
-    public void acceptInvite(Invite invite)
-    {
-        if(invites.contains(invite))
-        {
+    public void acceptInvite(Invite invite) {
+        if (invites.contains(invite)) {
             invite.getFromTeam().addPlayer(this);
         }
         invites.remove(invite);

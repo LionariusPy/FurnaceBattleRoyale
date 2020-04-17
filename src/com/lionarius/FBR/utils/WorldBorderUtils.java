@@ -11,9 +11,8 @@ import java.lang.reflect.Field;
 
 public class WorldBorderUtils {
 
-    public static void setWorldBorderLocation(Player player, Location location)
-    {
-        EntityPlayer entityPlayer = ((CraftPlayer)player).getHandle();
+    public static void setWorldBorderLocation(Player player, Location location) {
+        EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
 
         WorldBorder playerWorldBorder = entityPlayer.world.getWorldBorder();
 
@@ -25,9 +24,8 @@ public class WorldBorderUtils {
         entityPlayer.playerConnection.sendPacket(worldBorder);
     }
 
-    public static void setWorldBorderSize(Player player, double size)
-    {
-        EntityPlayer entityPlayer = ((CraftPlayer)player).getHandle();
+    public static void setWorldBorderSize(Player player, double size) {
+        EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
 
         WorldBorder playerWorldBorder = entityPlayer.world.getWorldBorder();
 
@@ -38,9 +36,8 @@ public class WorldBorderUtils {
         entityPlayer.playerConnection.sendPacket(worldBorder);
     }
 
-    public static void resetWorldBorder(Player player)
-    {
-        EntityPlayer entityPlayer = ((CraftPlayer)player).getHandle();
+    public static void resetWorldBorder(Player player) {
+        EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
 
         WorldBorder playerWorldBorder = entityPlayer.world.getWorldBorder();
 
@@ -53,8 +50,7 @@ public class WorldBorderUtils {
         entityPlayer.playerConnection.sendPacket(worldBorder);
     }
 
-    private static void setField(Object object, String fieldName, Object value)
-    {
+    private static void setField(Object object, String fieldName, Object value) {
         try {
             Field field = object.getClass().getDeclaredField(fieldName);
             field.setAccessible(true);

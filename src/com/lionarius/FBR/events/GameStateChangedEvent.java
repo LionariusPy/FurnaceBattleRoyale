@@ -1,8 +1,8 @@
 package com.lionarius.FBR.events;
 
+import com.lionarius.FBR.game.GameState;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import com.lionarius.FBR.game.GameState;
 
 public class GameStateChangedEvent extends Event {
 
@@ -10,18 +10,16 @@ public class GameStateChangedEvent extends Event {
 
     private final GameState gameState;
 
-    public GameStateChangedEvent(GameState gameState)
-    {
+    public GameStateChangedEvent(GameState gameState) {
         this.gameState = gameState;
+    }
+
+    public static HandlerList getHandlerList() {
+        return HANDLERS_LIST;
     }
 
     @Override
     public HandlerList getHandlers() {
-        return HANDLERS_LIST;
-    }
-
-    public static HandlerList getHandlerList()
-    {
         return HANDLERS_LIST;
     }
 

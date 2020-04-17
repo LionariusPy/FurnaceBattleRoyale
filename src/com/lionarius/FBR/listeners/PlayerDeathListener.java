@@ -6,9 +6,7 @@ import com.lionarius.FBR.player.FBRPlayer;
 import com.lionarius.FBR.player.PlayerManager;
 import com.lionarius.FBR.player.PlayerState;
 import com.lionarius.FBR.utils.LocationUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,13 +16,12 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 public class PlayerDeathListener implements Listener {
 
     @EventHandler
-    public void onRespawn(PlayerRespawnEvent event)
-    {
+    public void onRespawn(PlayerRespawnEvent event) {
         FBRPlayer fbrPlayer = PlayerManager.getFBRPlayer(event.getPlayer());
         Chunk teamChunk = fbrPlayer.getTeam().getTeamChunk();
 
         fbrPlayer.updateWorldBorder();
-        if(GameManager.isChunkPhase()) {
+        if (GameManager.isChunkPhase()) {
             if (event.getRespawnLocation().getChunk() != teamChunk) {
                 event.setRespawnLocation(LocationUtils.getDownBlock(fbrPlayer.getTeam().getTeamChunkLocation()));
             }
@@ -37,7 +34,6 @@ public class PlayerDeathListener implements Listener {
             Player player = event.getEntity();
 
             PlayerManager.getFBRPlayer(player).setPlayerState(PlayerState.DEAD);
-//            Bukkit.broadcastMessage(player.getDisplayName() + " умер")
         }
     }
 }

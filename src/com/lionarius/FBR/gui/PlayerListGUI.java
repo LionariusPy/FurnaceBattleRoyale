@@ -3,38 +3,35 @@ package com.lionarius.FBR.gui;
 import com.lionarius.FBR.player.FBRPlayer;
 import com.lionarius.FBR.player.PlayerManager;
 import com.lionarius.FBR.player.invites.Invite;
-import com.lionarius.FBR.team.FBRTeam;
-import com.lionarius.FBR.team.TeamManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-public class PlayerListGUI extends AbstractGUI{
+public class PlayerListGUI extends AbstractGUI {
 
     public int page;
 
     public PlayerListGUI(FBRPlayer fbrPlayer, int page) {
-        super(ChatColor.AQUA + "Список игроков", 9*6);
+        super(ChatColor.AQUA + "Список игроков", 9 * 6);
         this.page = page;
 
-        int maxPages = (int) Math.ceil((float)PlayerManager.getPlayersList().size() / 45);
+        int maxPages = (int) Math.ceil((float) PlayerManager.getPlayersList().size() / 45);
 
         ExecutableGUIAction playerAction = (player, action, slot) ->
         {
             PlayerListGUI currentGUI = (PlayerListGUI) player.getCurrentGUI();
 
             FBRPlayer clickedPlayer = PlayerManager.getPlayersList().get(slot + currentGUI.page * 45);
-            if(clickedPlayer.getTeam() != player.getTeam()) {
+            if (clickedPlayer.getTeam() != player.getTeam()) {
                 new Invite(player.getTeam(), clickedPlayer);
 
                 player.getPlayer().sendMessage(ChatColor.AQUA.toString() + "Приглашение игроку " + ChatColor.GOLD.toString() + clickedPlayer.getName() + ChatColor.AQUA.toString() + " отправлено");
             }
         };
 
-        for(int i = 45*page; i < Math.min(PlayerManager.getPlayersList().size(), 45*(page + 1)); i++)
-        {
+        for (int i = 45 * page; i < Math.min(PlayerManager.getPlayersList().size(), 45 * (page + 1)); i++) {
             setItem(getPlayerItem(PlayerManager.getPlayersList().get(i)), i - (45 * page), playerAction);
         }
 
@@ -48,8 +45,8 @@ public class PlayerListGUI extends AbstractGUI{
             new PlayerListGUI(player, page + 1);
         };
 
-        if(page > 0) setItem(getBackItem(), 45, backAction);
-        if(page < maxPages - 1) setItem(getNextItem(), 53, nextAction);
+        if (page > 0) setItem(getBackItem(), 45, backAction);
+        if (page < maxPages - 1) setItem(getNextItem(), 53, nextAction);
 
         ExecutableGUIAction menuAction = (player, action, slot) ->
         {
@@ -60,8 +57,7 @@ public class PlayerListGUI extends AbstractGUI{
         fbrPlayer.openInventory(this);
     }
 
-    private ItemStack getPlayerItem(FBRPlayer fbrPlayer)
-    {
+    private ItemStack getPlayerItem(FBRPlayer fbrPlayer) {
         ItemStack teamItem = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta teamItemMeta = (SkullMeta) teamItem.getItemMeta();
         teamItemMeta.setOwningPlayer(fbrPlayer.getPlayer());
@@ -70,8 +66,7 @@ public class PlayerListGUI extends AbstractGUI{
         return teamItem;
     }
 
-    private ItemStack getBackItem()
-    {
+    private ItemStack getBackItem() {
         ItemStack backItem = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta backItemMeta = backItem.getItemMeta();
         backItemMeta.setDisplayName("Назад");
@@ -79,8 +74,7 @@ public class PlayerListGUI extends AbstractGUI{
         return backItem;
     }
 
-    private ItemStack getNextItem()
-    {
+    private ItemStack getNextItem() {
         ItemStack nextItem = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
         ItemMeta nextItemMeta = nextItem.getItemMeta();
         nextItemMeta.setDisplayName("Вперед");
@@ -88,8 +82,7 @@ public class PlayerListGUI extends AbstractGUI{
         return nextItem;
     }
 
-    private ItemStack getMenuItem()
-    {
+    private ItemStack getMenuItem() {
         ItemStack menuItem = new ItemStack(Material.COMPASS);
         ItemMeta menuItemMeta = menuItem.getItemMeta();
         menuItemMeta.setDisplayName("В меню");

@@ -11,12 +11,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvitesGUI extends AbstractGUI{
+public class InvitesGUI extends AbstractGUI {
 
     public int page;
 
     public InvitesGUI(FBRPlayer fbrPlayer, int page) {
-        super(ChatColor.LIGHT_PURPLE + "Приглашения", 9*5);
+        super(ChatColor.LIGHT_PURPLE + "Приглашения", 9 * 5);
         this.page = page;
 
         int maxPages = (int) Math.ceil((float) fbrPlayer.getInvites().size() / 36);
@@ -26,19 +26,17 @@ public class InvitesGUI extends AbstractGUI{
             InvitesGUI currentGUI = (InvitesGUI) player.getCurrentGUI();
 
             Invite clickedInvite = player.getInvites().get(slot + currentGUI.page * 36);
-            if(action == InventoryAction.PICKUP_ALL) {
+            if (action == InventoryAction.PICKUP_ALL) {
                 player.acceptInvite(clickedInvite);
                 player.getPlayer().closeInventory();
                 player.getPlayer().sendMessage("Вы приняли приглашение игрока " + clickedInvite.getFromTeam().getLeader().getName());
-            }
-            else if(action == InventoryAction.PICKUP_HALF) {
+            } else if (action == InventoryAction.PICKUP_HALF) {
                 player.declineInvite(clickedInvite);
                 new InvitesGUI(player, currentGUI.page);
             }
         };
 
-        for(int i = 36*page; i < Math.min(fbrPlayer.getInvites().size(), 36*(page + 1)); i++)
-        {
+        for (int i = 36 * page; i < Math.min(fbrPlayer.getInvites().size(), 36 * (page + 1)); i++) {
             setItem(getInviteItem(fbrPlayer.getInvites().get(i)), i - (36 * page), inviteAction);
         }
 
@@ -52,8 +50,8 @@ public class InvitesGUI extends AbstractGUI{
             new PlayerListGUI(player, page + 1);
         };
 
-        if(page > 0) setItem(getBackItem(), 36, backAction);
-        if(page < maxPages - 1) setItem(getNextItem(), 44, nextAction);
+        if (page > 0) setItem(getBackItem(), 36, backAction);
+        if (page < maxPages - 1) setItem(getNextItem(), 44, nextAction);
 
         ExecutableGUIAction menuAction = (player, action, slot) ->
         {
@@ -64,11 +62,9 @@ public class InvitesGUI extends AbstractGUI{
         fbrPlayer.openInventory(this);
     }
 
-    private ItemStack getInviteItem(Invite invite)
-    {
+    private ItemStack getInviteItem(Invite invite) {
         ItemStack inviteItem = new ItemStack(Material.PAPER);
         ItemMeta inviteItemMeta = inviteItem.getItemMeta();
-//        inviteItemMeta.setOwningPlayer(fbrPlayer.getPlayer());
         inviteItemMeta.setDisplayName("Приглашение от " + invite.getFromTeam().getLeader().getName());
         List<String> lore = new ArrayList<>();
         lore.add("ЛКМ - принять");
@@ -78,8 +74,7 @@ public class InvitesGUI extends AbstractGUI{
         return inviteItem;
     }
 
-    private ItemStack getBackItem()
-    {
+    private ItemStack getBackItem() {
         ItemStack backItem = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta backItemMeta = backItem.getItemMeta();
         backItemMeta.setDisplayName("Назад");
@@ -87,8 +82,7 @@ public class InvitesGUI extends AbstractGUI{
         return backItem;
     }
 
-    private ItemStack getNextItem()
-    {
+    private ItemStack getNextItem() {
         ItemStack nextItem = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
         ItemMeta nextItemMeta = nextItem.getItemMeta();
         nextItemMeta.setDisplayName("Вперед");
@@ -96,8 +90,7 @@ public class InvitesGUI extends AbstractGUI{
         return nextItem;
     }
 
-    private ItemStack getMenuItem()
-    {
+    private ItemStack getMenuItem() {
         ItemStack menuItem = new ItemStack(Material.COMPASS);
         ItemMeta menuItemMeta = menuItem.getItemMeta();
         menuItemMeta.setDisplayName("В меню");

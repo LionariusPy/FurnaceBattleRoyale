@@ -14,19 +14,18 @@ public class TeamListGUI extends AbstractGUI {
     public int page;
 
     public TeamListGUI(FBRPlayer fbrPlayer, int page) {
-        super(ChatColor.GREEN + "Список команд", 9*6);
+        super(ChatColor.GREEN + "Список команд", 9 * 6);
 
         this.page = page;
 
-        int maxPages = (int) Math.ceil((float)TeamManager.getFBRTeams().size() / 45);
+        int maxPages = (int) Math.ceil((float) TeamManager.getFBRTeams().size() / 45);
 
         ExecutableGUIAction teamAction = (player, action, slot) ->
         {
 
         };
 
-        for(int i = 45*page; i < Math.min(TeamManager.getFBRTeams().size(), 45*(page + 1)); i++)
-        {
+        for (int i = 45 * page; i < Math.min(TeamManager.getFBRTeams().size(), 45 * (page + 1)); i++) {
             setItem(getTeamItem(TeamManager.getFBRTeams().get(i)), i - (45 * page), teamAction);
         }
 
@@ -40,8 +39,8 @@ public class TeamListGUI extends AbstractGUI {
             new TeamListGUI(player, page + 1);
         };
 
-        if(page > 0) setItem(getBackItem(), 45, backAction);
-        if(page < maxPages - 1) setItem(getNextItem(), 53, nextAction);
+        if (page > 0) setItem(getBackItem(), 45, backAction);
+        if (page < maxPages - 1) setItem(getNextItem(), 53, nextAction);
 
         ExecutableGUIAction menuAction = (player, action, slot) ->
         {
@@ -52,8 +51,7 @@ public class TeamListGUI extends AbstractGUI {
         fbrPlayer.openInventory(this);
     }
 
-    private ItemStack getTeamItem(FBRTeam fbrTeam)
-    {
+    private ItemStack getTeamItem(FBRTeam fbrTeam) {
         FBRPlayer leader = fbrTeam.getLeader();
 
         ItemStack teamItem = new ItemStack(Material.PLAYER_HEAD);
@@ -64,8 +62,7 @@ public class TeamListGUI extends AbstractGUI {
         return teamItem;
     }
 
-    private ItemStack getBackItem()
-    {
+    private ItemStack getBackItem() {
         ItemStack backItem = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta backItemMeta = backItem.getItemMeta();
         backItemMeta.setDisplayName("Назад");
@@ -73,8 +70,7 @@ public class TeamListGUI extends AbstractGUI {
         return backItem;
     }
 
-    private ItemStack getNextItem()
-    {
+    private ItemStack getNextItem() {
         ItemStack nextItem = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
         ItemMeta nextItemMeta = nextItem.getItemMeta();
         nextItemMeta.setDisplayName("Вперед");
@@ -82,8 +78,7 @@ public class TeamListGUI extends AbstractGUI {
         return nextItem;
     }
 
-    private ItemStack getMenuItem()
-    {
+    private ItemStack getMenuItem() {
         ItemStack menuItem = new ItemStack(Material.COMPASS);
         ItemMeta menuItemMeta = menuItem.getItemMeta();
         menuItemMeta.setDisplayName("В меню");

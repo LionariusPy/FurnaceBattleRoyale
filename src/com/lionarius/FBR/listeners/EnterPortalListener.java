@@ -8,9 +8,8 @@ import org.bukkit.event.player.PlayerPortalEvent;
 public class EnterPortalListener implements Listener {
 
     @EventHandler
-    public void onPortalEnter(PlayerPortalEvent event)
-    {
-        if(!GameManager.isPortalsAllowed()) {
+    public void onPortalEnter(PlayerPortalEvent event) {
+        if (!GameManager.isPortalsAllowed()) {
             event.getPlayer().sendMessage("Порталы отключены на данном этапе игры");
             event.setCancelled(true);
         }

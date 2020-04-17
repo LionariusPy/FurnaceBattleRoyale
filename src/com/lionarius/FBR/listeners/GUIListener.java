@@ -21,26 +21,21 @@ public class GUIListener implements Listener {
 
     public static GUIListener instance;
 
-    public static GUIListener getInstance()
-    {
-        return instance;
-    }
-
-    public GUIListener()
-    {
+    public GUIListener() {
         instance = this;
     }
 
+    public static GUIListener getInstance() {
+        return instance;
+    }
+
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent event)
-    {
+    public void onInventoryClick(InventoryClickEvent event) {
         FBRPlayer fbrPlayer = PlayerManager.getFBRPlayer(event.getWhoClicked().getUniqueId());
         AbstractGUI currentGUI = fbrPlayer.getCurrentGUI();
 
-        if(currentGUI != null)
-        {
-            if(event.getCurrentItem() != null && event.getClickedInventory() == currentGUI.getInventory())
-            {
+        if (currentGUI != null) {
+            if (event.getCurrentItem() != null && event.getClickedInventory() == currentGUI.getInventory()) {
                 InventoryAction currentAction = event.getAction();
 
                 int slot = event.getSlot();
@@ -49,41 +44,35 @@ public class GUIListener implements Listener {
             event.setCancelled(true);
         }
 
-        if(GameManager.getState() == GameState.WAITING) event.setCancelled(true);
+        if (GameManager.getState() == GameState.WAITING) event.setCancelled(true);
     }
 
     @EventHandler
-    public void onDropItem(PlayerDropItemEvent event)
-    {
-        if(GameManager.getState() == GameState.WAITING) event.setCancelled(true);
+    public void onDropItem(PlayerDropItemEvent event) {
+        if (GameManager.getState() == GameState.WAITING) event.setCancelled(true);
     }
 
     @EventHandler
-    public void onItemSwap(PlayerSwapHandItemsEvent event)
-    {
-        if(GameManager.getState() == GameState.WAITING) event.setCancelled(true);
+    public void onItemSwap(PlayerSwapHandItemsEvent event) {
+        if (GameManager.getState() == GameState.WAITING) event.setCancelled(true);
     }
 
     @EventHandler
-    public void onInventoryClose(InventoryCloseEvent event)
-    {
+    public void onInventoryClose(InventoryCloseEvent event) {
         FBRPlayer fbrPlayer = PlayerManager.getFBRPlayer(event.getPlayer().getUniqueId());
 
-        if(fbrPlayer != null && fbrPlayer.getCurrentGUI() != null && event.getInventory() == fbrPlayer.getCurrentGUI().getInventory()) {
+        if (fbrPlayer != null && fbrPlayer.getCurrentGUI() != null && event.getInventory() == fbrPlayer.getCurrentGUI().getInventory()) {
             fbrPlayer.closeInventory();
         }
     }
+
     @EventHandler
-    public void onItemClick(PlayerInteractEvent event)
-    {
-        if(GameManager.getState() == GameState.WAITING)
-        {
-            if((event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) && event.getItem() != null)
-            {
+    public void onItemClick(PlayerInteractEvent event) {
+        if (GameManager.getState() == GameState.WAITING) {
+            if ((event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) && event.getItem() != null) {
                 FBRPlayer fbrPlayer = PlayerManager.getFBRPlayer(event.getPlayer());
 
-                if(event.getItem().getType() == Material.COMPASS)
-                {
+                if (event.getItem().getType() == Material.COMPASS) {
                     new MenuGUI(fbrPlayer);
                 }
             }

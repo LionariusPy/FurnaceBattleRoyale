@@ -9,21 +9,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.FurnaceBurnEvent;
 
 public class FurnaceBurnedOutListener implements Listener {
 
     @EventHandler
-    public void onFurnace(FurnaceBurnedOutEvent event)
-    {
-        if(GameManager.getState() != GameState.ENDED) {
+    public void onFurnace(FurnaceBurnedOutEvent event) {
+        if (GameManager.getState() != GameState.ENDED) {
             World world = event.getFBRFurnace().getFurnaceBlock().getWorld();
 
             world.createExplosion(event.getFBRFurnace().getFurnaceBlock().getLocation(), 2, true);
 
-            for(FBRPlayer player : event.getFBRFurnace().getPlayers())
-            {
-                if(player.getState() != PlayerState.DEAD) player.setPlayerState(PlayerState.DEAD);
+            for (FBRPlayer player : event.getFBRFurnace().getPlayers()) {
+                if (player.getState() != PlayerState.DEAD) player.setPlayerState(PlayerState.DEAD);
                 player.getPlayer().sendMessage(ChatColor.RED + "Ваша печка была разрушена");
             }
         }

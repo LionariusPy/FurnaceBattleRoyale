@@ -7,7 +7,10 @@ import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.team.TeamManager;
 import com.lionarius.FBR.utils.LocationUtils;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,12 +22,10 @@ import org.bukkit.potion.PotionEffectType;
 public class PlayerStateChangedListener implements Listener {
 
     @EventHandler
-    public void onStateChanged(PlayerStateChangedEvent event)
-    {
+    public void onStateChanged(PlayerStateChangedEvent event) {
         Player player = event.getFBRPlayer().getPlayer();
 
-        switch (event.getPlayerState())
-        {
+        switch (event.getPlayerState()) {
             case WAITING:
                 player.teleport(new Location(FurnaceBattleRoyale.getWorld(), 0, 252, 0));
                 player.setGameMode(GameMode.ADVENTURE);
@@ -49,7 +50,7 @@ public class PlayerStateChangedListener implements Listener {
                 player.teleport(LocationUtils.getDownBlock(player.getLocation().subtract(0, 5, 0)));
                 break;
             case DEAD:
-                if(player.isOnline()) {
+                if (player.isOnline()) {
                     ItemStack[] drops = player.getInventory().getContents();
                     player.getInventory().clear();
                     player.setGameMode(GameMode.SPECTATOR);
@@ -68,7 +69,7 @@ public class PlayerStateChangedListener implements Listener {
                         player.kickPlayer("Вы умерли");
                 }
 
-                if(TeamManager.getAliveFBRTeams().size() == 1)
+                if (TeamManager.getAliveFBRTeams().size() == 1)
                     GameManager.setGameState(GameState.ENDED);
                 break;
         }

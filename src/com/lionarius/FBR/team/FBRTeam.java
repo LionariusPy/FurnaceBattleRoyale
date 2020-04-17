@@ -264,12 +264,6 @@ public class FBRTeam {
                 objective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
                 break;
             case PLAYING_2:
-                objective.getScore(ChatColor.BLUE.toString()).setScore(4);
-                objective.getScore("Статус печки: ").setScore(3);
-                objective.getScore(ChatColor.BLACK.toString()).setScore(2);
-                objective.getScore("Время до следующего этапа: ").setScore(1);
-                objective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
-                break;
             case PLAYING_3:
                 objective.getScore(ChatColor.BLUE.toString()).setScore(4);
                 objective.getScore("Статус печки: ").setScore(3);
@@ -278,7 +272,6 @@ public class FBRTeam {
                 objective.getScore(ChatColor.GOLD.toString() + "    ").setScore(0);
                 break;
             case PLAYING_4:
-                break;
             case ENDED:
                 break;
         }

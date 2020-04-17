@@ -10,18 +10,16 @@ public class FurnaceBurnedOutEvent extends Event {
 
     private final FBRFurnace furnace;
 
-    public FurnaceBurnedOutEvent(FBRFurnace furnace)
-    {
+    public FurnaceBurnedOutEvent(FBRFurnace furnace) {
         this.furnace = furnace;
+    }
+
+    public static HandlerList getHandlerList() {
+        return HANDLERS_LIST;
     }
 
     @Override
     public HandlerList getHandlers() {
-        return HANDLERS_LIST;
-    }
-
-    public static HandlerList getHandlerList()
-    {
         return HANDLERS_LIST;
     }
 

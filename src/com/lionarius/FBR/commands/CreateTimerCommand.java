@@ -2,7 +2,6 @@ package com.lionarius.FBR.commands;
 
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

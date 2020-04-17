@@ -21,20 +21,14 @@ public class ScoreboardUpdateTask extends BukkitRunnable {
 
         List<FBRTeam> teams = TeamManager.getFBRTeams();
 
-        if(teams.size() == 0) return;
+        if (teams.size() == 0) return;
 
-        for(FBRTeam fbrTeam : teams)
-        {
-//            int teamID = fbrTeam.getTeamID();
-
-            if(GameManager.getCountdownTask() != null)
+        for (FBRTeam fbrTeam : teams) {
+            if (GameManager.getCountdownTask() != null)
                 fbrTeam.getScoreboard().getTeam("time"/* + teamID*/).setSuffix(GameManager.getCountdownTask().getFormattedTime());
             fbrTeam.getScoreboard().getTeam("status"/* + teamID*/).setSuffix(fbrTeam.getFurnaceStatus());
-
-//            if(fbrTeam.getMembers().size() == 1) fbrTeam.getScoreboard().getTeam("mode"/* + teamID*/).setSuffix(ChatColor.GOLD.toString() + "ОДИНОЧНЫЙ");
-//            else fbrTeam.getScoreboard().getTeam("mode"/* + teamID*/).setSuffix(ChatColor.GOLD.toString() + "КОМАНДНЫЙ");
         }
 
-        if(GameManager.getState() == GameState.ENDED) this.cancel();
+        if (GameManager.getState() == GameState.ENDED) this.cancel();
     }
 }

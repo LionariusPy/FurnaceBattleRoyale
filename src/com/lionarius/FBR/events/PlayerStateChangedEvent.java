@@ -12,30 +12,25 @@ public class PlayerStateChangedEvent extends Event {
     private final FBRPlayer fbrPlayer;
     private final PlayerState playerState;
 
-    public PlayerStateChangedEvent(FBRPlayer fbrPlayer, PlayerState playerState)
-    {
+    public PlayerStateChangedEvent(FBRPlayer fbrPlayer, PlayerState playerState) {
         this.fbrPlayer = fbrPlayer;
         this.playerState = playerState;
     }
 
+    public static HandlerList getHandlerList() {
+        return HANDLERS_LIST;
+    }
+
     @Override
-    public HandlerList getHandlers()
-    {
+    public HandlerList getHandlers() {
         return HANDLERS_LIST;
     }
 
-    public static HandlerList getHandlerList()
-    {
-        return HANDLERS_LIST;
-    }
-
-    public FBRPlayer getFBRPlayer()
-    {
+    public FBRPlayer getFBRPlayer() {
         return fbrPlayer;
     }
 
-    public PlayerState getPlayerState()
-    {
+    public PlayerState getPlayerState() {
         return playerState;
     }
 }

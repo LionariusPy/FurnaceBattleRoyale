@@ -10,17 +10,13 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class PlayerDamageListener implements Listener {
 
     @EventHandler
-    public void onDealDamage(EntityDamageByEntityEvent event)
-    {
-        if(event.getEntity() instanceof Player){
-            if(event.getDamager() instanceof Player)
-            {
-                if(!GameManager.isPVPAllowed()) event.setCancelled(true);
-            }
-            else if(event.getDamager() instanceof Arrow)
-            {
+    public void onDealDamage(EntityDamageByEntityEvent event) {
+        if (event.getEntity() instanceof Player) {
+            if (event.getDamager() instanceof Player) {
+                if (!GameManager.isPVPAllowed()) event.setCancelled(true);
+            } else if (event.getDamager() instanceof Arrow) {
                 Arrow arrow = (Arrow) event.getDamager();
-                if(arrow.getShooter() instanceof Player && !GameManager.isPVPAllowed()) event.setCancelled(true);
+                if (arrow.getShooter() instanceof Player && !GameManager.isPVPAllowed()) event.setCancelled(true);
             }
         }
     }

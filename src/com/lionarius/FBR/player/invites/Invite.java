@@ -7,8 +7,7 @@ public class Invite {
 
     private final FBRTeam fromTeam;
 
-    public Invite(FBRTeam fromTeam, FBRPlayer player)
-    {
+    public Invite(FBRTeam fromTeam, FBRPlayer player) {
         this.fromTeam = fromTeam;
         player.invitePlayer(this);
     }
@@ -18,8 +17,7 @@ public class Invite {
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }

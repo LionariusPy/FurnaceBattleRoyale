@@ -1,12 +1,12 @@
 package com.lionarius.FBR.player;
 
+import com.lionarius.FBR.config.ConfigManager;
+import com.lionarius.FBR.tasks.FBRFurnaceTask;
 import com.lionarius.FBR.team.FBRTeam;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Furnace;
-import com.lionarius.FBR.config.ConfigManager;
-import com.lionarius.FBR.tasks.FBRFurnaceTask;
 
 import java.util.List;
 
@@ -29,20 +29,25 @@ public class FBRFurnace {
 
         Furnace furnaceState = getFurnaceState();
 
-        furnaceState.setBurnTime((short)600);
+        furnaceState.setBurnTime((short) 600);
         furnaceState.update();
 
         updateTask = new FBRFurnaceTask(this);
     }
 
-    public Furnace getFurnaceState() { return ((Furnace) furnaceBlock.getState()); }
+    public Furnace getFurnaceState() {
+        return ((Furnace) furnaceBlock.getState());
+    }
 
-    public Block getFurnaceBlock() { return furnaceBlock; }
+    public Block getFurnaceBlock() {
+        return furnaceBlock;
+    }
 
-    public short getBurnTime() { return ((Furnace) furnaceBlock.getState()).getBurnTime(); }
+    public short getBurnTime() {
+        return ((Furnace) furnaceBlock.getState()).getBurnTime();
+    }
 
-    public short getCookTime()
-    {
+    public short getCookTime() {
         return ((Furnace) furnaceBlock.getState()).getCookTime();
     }
 

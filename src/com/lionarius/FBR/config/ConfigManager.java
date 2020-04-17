@@ -17,14 +17,12 @@ public class ConfigManager {
     public static boolean IS_PORTALS_ENABLED;
     public static int MAX_OFFLINE_TIME;
 
-    public ConfigManager()
-    {
+    public ConfigManager() {
         FurnaceBattleRoyale plugin = FurnaceBattleRoyale.getInstance();
 
         File configFile = new File(plugin.getDataFolder(), "config.yml");
 
-        if(!configFile.exists())
-        {
+        if (!configFile.exists()) {
             createConfig(plugin);
 
             plugin.getConfig().set("game.team.max_players", 4);
@@ -41,26 +39,24 @@ public class ConfigManager {
         loadConfig(plugin);
     }
 
-    private void createConfig(FurnaceBattleRoyale plugin)
-    {
+    private void createConfig(FurnaceBattleRoyale plugin) {
         plugin.getConfig().options().copyDefaults(true);
         plugin.saveConfig();
     }
 
-    private void loadConfig(FurnaceBattleRoyale plugin)
-    {
+    private void loadConfig(FurnaceBattleRoyale plugin) {
         MAX_PLAYERS_TEAM = plugin.getConfig().getInt("game.team.max_players");
-        if(MAX_PLAYERS_TEAM > 8) MAX_PLAYERS_TEAM = 8;
+        if (MAX_PLAYERS_TEAM > 8) MAX_PLAYERS_TEAM = 8;
 
-        switch (Objects.requireNonNull(plugin.getConfig().getString("game.furnace.type")).toLowerCase())
-        {
+        switch (Objects.requireNonNull(plugin.getConfig().getString("game.furnace.type")).toLowerCase()) {
             case "blast":
                 FURNACE_TYPE = Material.BLAST_FURNACE;
                 break;
             case "smoker":
                 FURNACE_TYPE = Material.SMOKER;
                 break;
-            default: FURNACE_TYPE = Material.FURNACE;
+            default:
+                FURNACE_TYPE = Material.FURNACE;
         }
 
         TASK_UPDATE_TIME = plugin.getConfig().getLong("game.task_update_time_ticks");

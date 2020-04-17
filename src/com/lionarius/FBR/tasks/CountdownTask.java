@@ -37,7 +37,8 @@ public class CountdownTask extends BukkitRunnable {
         time--;
     }
 
-    public long getTimeInSeconds() {
+    public long getTimeInSeconds()
+    {
         return time;
     }
 

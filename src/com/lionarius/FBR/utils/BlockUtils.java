@@ -13,12 +13,9 @@ public class BlockUtils {
 
     private static final Map<Location, LivingEntity> glowingBlocks = new HashMap<>();
 
-    public static void setGlow(Location blockLocation, boolean isGlowing)
-    {
-        if(isGlowing)
-        {
-            if(!glowingBlocks.containsKey(blockLocation))
-            {
+    public static void setGlow(Location blockLocation, boolean isGlowing) {
+        if (isGlowing) {
+            if (!glowingBlocks.containsKey(blockLocation)) {
                 LivingEntity shulker = (LivingEntity) blockLocation.getWorld().spawnEntity(blockLocation, EntityType.SHULKER);
                 shulker.setAI(false);
                 shulker.setGlowing(true);
@@ -28,11 +25,8 @@ public class BlockUtils {
 
                 glowingBlocks.put(blockLocation, shulker);
             }
-        }
-        else
-        {
-            if(glowingBlocks.containsKey(blockLocation))
-            {
+        } else {
+            if (glowingBlocks.containsKey(blockLocation)) {
                 glowingBlocks.get(blockLocation).remove();
 
                 glowingBlocks.remove(blockLocation);

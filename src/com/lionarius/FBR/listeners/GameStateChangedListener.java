@@ -2,9 +2,12 @@ package com.lionarius.FBR.listeners;
 
 import com.lionarius.FBR.FurnaceBattleRoyale;
 import com.lionarius.FBR.config.ConfigManager;
+import com.lionarius.FBR.events.GameStateChangedEvent;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
-import com.lionarius.FBR.player.*;
+import com.lionarius.FBR.player.FBRPlayer;
+import com.lionarius.FBR.player.PlayerManager;
+import com.lionarius.FBR.player.PlayerState;
 import com.lionarius.FBR.tasks.CountdownTask;
 import com.lionarius.FBR.tasks.ScoreboardUpdateTask;
 import com.lionarius.FBR.team.FBRTeam;
@@ -15,21 +18,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import com.lionarius.FBR.events.GameStateChangedEvent;
 
 import java.util.Random;
 
 public class GameStateChangedListener implements Listener {
 
     @EventHandler
-    public void onStateChanged(GameStateChangedEvent event)
-    {
-        switch (event.getGameState()){
+    public void onStateChanged(GameStateChangedEvent event) {
+        switch (event.getGameState()) {
 
             case WAITING:
                 new ScoreboardUpdateTask();
 
-                FurnaceBattleRoyale.getWorld().getWorldBorder().setCenter(0,0);
+                FurnaceBattleRoyale.getWorld().getWorldBorder().setCenter(0, 0);
                 FurnaceBattleRoyale.getWorld().getWorldBorder().setSize(ConfigManager.MAP_SIZE_IN_CHUNKS * 16);
 
                 FurnaceBattleRoyale.getNether().getWorldBorder().setCenter(0, 0);
@@ -50,14 +51,14 @@ public class GameStateChangedListener implements Listener {
                 FurnaceBattleRoyale.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
                 FurnaceBattleRoyale.getWorld().setSpawnLocation(LocationUtils.getDownBlock(new Location(FurnaceBattleRoyale.getWorld(), 0, 240, 0)));
 
-                for(FBRPlayer fbrPlayer : PlayerManager.getPlayersList())
-                {
+                for (FBRPlayer fbrPlayer : PlayerManager.getPlayersList()) {
                     fbrPlayer.setPlayerState(PlayerState.PLAYING);
                 }
 
                 destroyLobby(FurnaceBattleRoyale.getWorld(), 10, 250);
 
-                CountdownTask.ExecutableCountdownAction update2 = (countdown) ->  {  };
+                CountdownTask.ExecutableCountdownAction update2 = (countdown) -> {
+                };
                 CountdownTask.ExecutableCountdownAction end2 = (countdown) ->
                 {
                     GameManager.setGameState(GameState.PLAYING_2);
@@ -67,11 +68,10 @@ public class GameStateChangedListener implements Listener {
 
                 break;
             case PLAYING_2:
-                for(FBRTeam team : TeamManager.getAliveFBRTeams())
-                {
+                for (FBRTeam team : TeamManager.getAliveFBRTeams()) {
                     team.setTeamChunk(team.getLeader().getPlayer().getLocation().getChunk());
 
-                    if(!LocationUtils.isUniqueChunkForTeam(team) || !LocationUtils.isChunkInBorder(team.getTeamChunk())) {
+                    if (!LocationUtils.isUniqueChunkForTeam(team) || !LocationUtils.isChunkInBorder(team.getTeamChunk())) {
                         Chunk closestChunk = LocationUtils.getClosestFreeChunk(team.getTeamChunk());
 
                         if (closestChunk == null) {
@@ -87,9 +87,9 @@ public class GameStateChangedListener implements Listener {
 
                     }
 
-                    for(FBRPlayer fbrPlayer : team.getMembers())
-                    {
-                        if(fbrPlayer.getPlayer().getLocation().getChunk() != team.getTeamChunk() && !fbrPlayer.isLeader()) fbrPlayer.getPlayer().teleport(team.getLeader().getPlayer());
+                    for (FBRPlayer fbrPlayer : team.getMembers()) {
+                        if (fbrPlayer.getPlayer().getLocation().getChunk() != team.getTeamChunk() && !fbrPlayer.isLeader())
+                            fbrPlayer.getPlayer().teleport(team.getLeader().getPlayer());
 
                         Chunk teamChunk = team.getTeamChunk();
                     }
@@ -101,7 +101,8 @@ public class GameStateChangedListener implements Listener {
                     team.createFurnace(furnaceLocation);
                 }
 
-                CountdownTask.ExecutableCountdownAction update3 = (countdown) ->  {  };
+                CountdownTask.ExecutableCountdownAction update3 = (countdown) -> {
+                };
                 CountdownTask.ExecutableCountdownAction end3 = (countdown) ->
                 {
                     GameManager.setGameState(GameState.PLAYING_3);
@@ -120,48 +121,44 @@ public class GameStateChangedListener implements Listener {
 
                 StringBuilder players = new StringBuilder();
 
-                for(FBRPlayer fbrPlayer : wonTeam.getMembers())
-                {
+                for (FBRPlayer fbrPlayer : wonTeam.getMembers()) {
                     players.append(fbrPlayer.getName()).append(" ");
                     fbrPlayer.getPlayer().setInvulnerable(true);
                 }
                 String playersStr = players.toString();
 
-                for(Player player : Bukkit.getOnlinePlayers())
-                {
+                for (Player player : Bukkit.getOnlinePlayers()) {
                     player.sendTitle("Команда " + wonTeam.getLeader().getName() + " побеждает", "Состав: " + playersStr, 20, 100, 20);
                 }
                 break;
 
         }
 
-        for(FBRTeam team : TeamManager.getAliveFBRTeams())
-        {
+        for (FBRTeam team : TeamManager.getAliveFBRTeams()) {
             team.updateScoreboardVisuals();
         }
 
-        for(FBRPlayer fbrPlayer : PlayerManager.getPlayersList())
+        for (FBRPlayer fbrPlayer : PlayerManager.getPlayersList())
             fbrPlayer.updateWorldBorder();
 
-        if(GameManager.isChunkPhase())
+        if (GameManager.isChunkPhase())
             GameManager.setPortalsAllowed(false);
-        else if(ConfigManager.IS_PORTALS_ENABLED)
+        else if (ConfigManager.IS_PORTALS_ENABLED)
             GameManager.setPortalsAllowed(true);
     }
 
-    public void createLobby(World world, int size, int height)
-    {
-        for(int x = -size; x <= size; x++) {
-            for(int z = -size; z <= size; z++) {
+    public void createLobby(World world, int size, int height) {
+        for (int x = -size; x <= size; x++) {
+            for (int z = -size; z <= size; z++) {
                 world.getBlockAt(x, height, z).setType(Material.GLASS);
 
-                if(x == -size || x == size) {
-                    for(int y = height + 1; y < height + 4; y++) {
+                if (x == -size || x == size) {
+                    for (int y = height + 1; y < height + 4; y++) {
                         world.getBlockAt(x, y, z).setType(Material.GLASS);
                     }
                 }
-                if(z == -size || z == size) {
-                    for(int y = height + 1; y < height + 4; y++) {
+                if (z == -size || z == size) {
+                    for (int y = height + 1; y < height + 4; y++) {
                         world.getBlockAt(x, y, z).setType(Material.GLASS);
                     }
                 }
@@ -169,12 +166,11 @@ public class GameStateChangedListener implements Listener {
         }
     }
 
-    public void destroyLobby(World world, int size, int height)
-    {
-        for(int x = -size; x <= size; x++) {
-            for(int z = -size; z <= size; z++) {
-                for(int y = height; y < height + 4; y++) {
-                    if(world.getBlockAt(x,y,z).getType() == Material.AIR) continue;
+    public void destroyLobby(World world, int size, int height) {
+        for (int x = -size; x <= size; x++) {
+            for (int z = -size; z <= size; z++) {
+                for (int y = height; y < height + 4; y++) {
+                    if (world.getBlockAt(x, y, z).getType() == Material.AIR) continue;
                     world.getBlockAt(x, y, z).setType(Material.AIR);
                 }
             }

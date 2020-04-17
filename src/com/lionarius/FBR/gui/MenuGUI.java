@@ -12,7 +12,7 @@ public class MenuGUI extends AbstractGUI {
     public MenuGUI(FBRPlayer fbrPlayer) {
         super(ChatColor.GREEN + "Меню", 9);
 
-        if(fbrPlayer.isLeader()) {
+        if (fbrPlayer.isLeader()) {
             ItemStack ready = getReadyItem(fbrPlayer);
             ExecutableGUIAction readyAction = (player, action, slot) ->
             {
@@ -25,7 +25,7 @@ public class MenuGUI extends AbstractGUI {
             setItem(ready, 7, readyAction);
         }
 
-        if(ConfigManager.MAX_PLAYERS_TEAM > 1) {
+        if (ConfigManager.MAX_PLAYERS_TEAM > 1) {
             ItemStack teamList = new ItemStack(Material.FURNACE);
             ItemMeta teamListItemMeta = teamList.getItemMeta();
             teamListItemMeta.setDisplayName(ChatColor.AQUA + "Список команд");
@@ -47,7 +47,7 @@ public class MenuGUI extends AbstractGUI {
             setItem(playerList, 2, playerListAction);
         }
 
-        if(fbrPlayer.getInvites().size() > 0) {
+        if (fbrPlayer.getInvites().size() > 0) {
             ItemStack inviteList = new ItemStack(Material.WRITTEN_BOOK);
             ItemMeta inviteListItemMeta = inviteList.getItemMeta();
             inviteListItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Приглашения");
@@ -62,11 +62,10 @@ public class MenuGUI extends AbstractGUI {
         fbrPlayer.openInventory(this);
     }
 
-    private ItemStack getReadyItem(FBRPlayer fbrPlayer)
-    {
+    private ItemStack getReadyItem(FBRPlayer fbrPlayer) {
         ItemStack ready = new ItemStack(fbrPlayer.getTeam().isReadyToStart() ? Material.RED_CONCRETE : Material.GREEN_CONCRETE);
         ItemMeta readyItemMeta = ready.getItemMeta();
-        readyItemMeta.setDisplayName(fbrPlayer.getTeam().isReadyToStart() ? ChatColor.RED + "Не готов" : ChatColor.GREEN + "Готов" );
+        readyItemMeta.setDisplayName(fbrPlayer.getTeam().isReadyToStart() ? ChatColor.RED + "Не готов" : ChatColor.GREEN + "Готов");
         ready.setItemMeta(readyItemMeta);
         return ready;
     }
