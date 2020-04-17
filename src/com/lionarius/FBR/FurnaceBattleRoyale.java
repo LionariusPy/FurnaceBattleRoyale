@@ -18,7 +18,7 @@ import java.io.IOException;
 
 public class FurnaceBattleRoyale extends JavaPlugin {
 
-    public static FurnaceBattleRoyale instance;
+    private static FurnaceBattleRoyale instance;
 
     public static FurnaceBattleRoyale getInstance() {
         return instance;
