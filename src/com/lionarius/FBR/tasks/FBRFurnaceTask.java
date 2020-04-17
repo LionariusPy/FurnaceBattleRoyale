@@ -2,6 +2,7 @@ package com.lionarius.FBR.tasks;
 
 import com.lionarius.FBR.events.FurnaceBurnedOutEvent;
 import com.lionarius.FBR.player.FBRFurnace;
+import org.bukkit.block.Furnace;
 import org.bukkit.scheduler.BukkitRunnable;
 import com.lionarius.FBR.FurnaceBattleRoyale;
 import com.lionarius.FBR.config.ConfigManager;
@@ -38,6 +39,14 @@ public class FBRFurnaceTask extends BukkitRunnable {
             return;
         }
         if(furnace.getFurnaceState().getInventory().getSmelting() == null || furnace.getCookTime() <= 0) timeWithoutSmelting--;
-        else timeWithoutSmelting = maxTimeWithoutSmelting;
+        else
+        {
+            timeWithoutSmelting = maxTimeWithoutSmelting;
+
+            Furnace state = furnace.getFurnaceState();
+            state.setCookTime((short)(state.getCookTime() + ConfigManager.TASK_UPDATE_TIME * 2));
+            if(state.getCookTime() > 199) state.setCookTime((short)199);
+            state.update();
+        }
     }
 }

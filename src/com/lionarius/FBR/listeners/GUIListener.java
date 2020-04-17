@@ -15,6 +15,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 public class GUIListener implements Listener {
 
@@ -53,6 +54,12 @@ public class GUIListener implements Listener {
 
     @EventHandler
     public void onDropItem(PlayerDropItemEvent event)
+    {
+        if(GameManager.getState() == GameState.WAITING) event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onItemSwap(PlayerSwapHandItemsEvent event)
     {
         if(GameManager.getState() == GameState.WAITING) event.setCancelled(true);
     }
