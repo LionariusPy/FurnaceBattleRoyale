@@ -65,6 +65,7 @@ public class FBRTeam {
 
         Team modeTeam = scoreboard.registerNewTeam("mode"/* + teamID*/);
         modeTeam.addEntry("Режим: ");
+        modeTeam.setSuffix("");
 
         addPlayer(player);
         player.setLeader(true);

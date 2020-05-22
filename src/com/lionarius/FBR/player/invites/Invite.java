@@ -21,12 +21,12 @@ public class Invite {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (obj == null || this.getClass() != obj.getClass()) {
             return false;
         }
 
         Invite compare = (Invite) obj;
 
-        return compare.fromTeam == this.fromTeam;
+        return this.fromTeam == compare.fromTeam;
     }
 }

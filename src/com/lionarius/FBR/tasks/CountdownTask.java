@@ -1,8 +1,8 @@
 package com.lionarius.FBR.tasks;
 
+import com.lionarius.FBR.FurnaceBattleRoyale;
 import com.lionarius.FBR.utils.TimeUtils;
 import org.bukkit.scheduler.BukkitRunnable;
-import com.lionarius.FBR.FurnaceBattleRoyale;
 
 public class CountdownTask extends BukkitRunnable {
 
@@ -19,17 +19,12 @@ public class CountdownTask extends BukkitRunnable {
     }
 
     public CountdownTask(long seconds, ExecutableCountdownAction updateAction) {
-        this.time = seconds;
-        this.updateAction = updateAction;
-        this.stopAction = null;
-
-        this.runTaskTimer(FurnaceBattleRoyale.getInstance(), 0L, 20L);
+        this(seconds, updateAction, null);
     }
 
     @Override
     public void run() {
-        if(time <= 0)
-        {
+        if (time <= 0) {
             stopCountdown();
             return;
         }
@@ -43,7 +38,7 @@ public class CountdownTask extends BukkitRunnable {
     }
 
     public String getFormattedTime() {
-        return TimeUtils.getFormattedTime(time);
+        return TimeUtils.formatTime(time);
     }
 
     public void stopCountdown() {

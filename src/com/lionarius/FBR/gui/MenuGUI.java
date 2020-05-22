@@ -14,8 +14,7 @@ public class MenuGUI extends AbstractGUI {
 
         if (fbrPlayer.isLeader()) {
             ItemStack ready = getReadyItem(fbrPlayer);
-            ExecutableGUIAction readyAction = (player, action, slot) ->
-            {
+            ExecutableGUIAction readyAction = (player, action, slot) -> {
                 player.getTeam().setReadyToStart(!player.getTeam().isReadyToStart());
 
                 ItemStack readyItem = getReadyItem(player);
@@ -30,20 +29,18 @@ public class MenuGUI extends AbstractGUI {
             ItemMeta teamListItemMeta = teamList.getItemMeta();
             teamListItemMeta.setDisplayName(ChatColor.AQUA + "Список команд");
             teamList.setItemMeta(teamListItemMeta);
-            ExecutableGUIAction teamListAction = (player, action, slot) ->
-            {
-                new TeamListGUI(player, 0);
-            };
+
+            ExecutableGUIAction teamListAction = (player, action, slot) -> new TeamListGUI(player, 0);
+
             setItem(teamList, 1, teamListAction);
 
             ItemStack playerList = new ItemStack(Material.PLAYER_HEAD);
             ItemMeta playerListItemMeta = playerList.getItemMeta();
             playerListItemMeta.setDisplayName(ChatColor.AQUA + "Список игрков");
             playerList.setItemMeta(playerListItemMeta);
-            ExecutableGUIAction playerListAction = (player, action, slot) ->
-            {
-                new PlayerListGUI(player, 0);
-            };
+
+            ExecutableGUIAction playerListAction = (player, action, slot) -> new PlayerListGUI(player, 0);
+
             setItem(playerList, 2, playerListAction);
         }
 
@@ -52,10 +49,9 @@ public class MenuGUI extends AbstractGUI {
             ItemMeta inviteListItemMeta = inviteList.getItemMeta();
             inviteListItemMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Приглашения");
             inviteList.setItemMeta(inviteListItemMeta);
-            ExecutableGUIAction inviteListAction = (player, action, slot) ->
-            {
-                new InvitesGUI(player, 0);
-            };
+
+            ExecutableGUIAction inviteListAction = (player, action, slot) -> new InvitesGUI(player, 0);
+
             setItem(inviteList, 4, inviteListAction);
         }
 

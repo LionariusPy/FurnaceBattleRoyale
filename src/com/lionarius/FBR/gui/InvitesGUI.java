@@ -21,8 +21,7 @@ public class InvitesGUI extends AbstractGUI {
 
         int maxPages = (int) Math.ceil((float) fbrPlayer.getInvites().size() / 36);
 
-        ExecutableGUIAction inviteAction = (player, action, slot) ->
-        {
+        ExecutableGUIAction inviteAction = (player, action, slot) -> {
             InvitesGUI currentGUI = (InvitesGUI) player.getCurrentGUI();
 
             Invite clickedInvite = player.getInvites().get(slot + currentGUI.page * 36);
@@ -40,23 +39,15 @@ public class InvitesGUI extends AbstractGUI {
             setItem(getInviteItem(fbrPlayer.getInvites().get(i)), i - (36 * page), inviteAction);
         }
 
-        ExecutableGUIAction backAction = (player, action, slot) ->
-        {
-            new PlayerListGUI(player, page - 1);
-        };
+        ExecutableGUIAction backAction = (player, action, slot) -> new PlayerListGUI(player, page - 1);
 
-        ExecutableGUIAction nextAction = (player, action, slot) ->
-        {
-            new PlayerListGUI(player, page + 1);
-        };
+        ExecutableGUIAction nextAction = (player, action, slot) -> new PlayerListGUI(player, page + 1);
 
         if (page > 0) setItem(getBackItem(), 36, backAction);
         if (page < maxPages - 1) setItem(getNextItem(), 44, nextAction);
 
-        ExecutableGUIAction menuAction = (player, action, slot) ->
-        {
-            new MenuGUI(player);
-        };
+        ExecutableGUIAction menuAction = (player, action, slot) -> new MenuGUI(player);
+
         setItem(getMenuItem(), 40, menuAction);
 
         fbrPlayer.openInventory(this);

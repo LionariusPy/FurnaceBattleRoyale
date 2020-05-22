@@ -89,8 +89,8 @@ public class GameStateChangedListener implements Listener {
                     for (FBRPlayer fbrPlayer : team.getMembers()) {
                         if (fbrPlayer.getPlayer().getLocation().getChunk() != team.getTeamChunk() && !fbrPlayer.isLeader())
                             fbrPlayer.getPlayer().teleport(team.getLeader().getPlayer());
-
-                        Chunk teamChunk = team.getTeamChunk();
+//
+//                        Chunk teamChunk = team.getTeamChunk();
                     }
 
                     Location furnaceLocation = new Location(team.getTeamChunk().getWorld(), team.getTeamChunk().getX() * 16, 255, team.getTeamChunk().getZ() * 16);
@@ -145,7 +145,7 @@ public class GameStateChangedListener implements Listener {
             GameManager.setPortalsAllowed(true);
     }
 
-    public void createLobby(World world, int size, int height) {
+    private void createLobby(World world, int size, int height) {
         for (int x = -size; x <= size; x++) {
             for (int z = -size; z <= size; z++) {
                 world.getBlockAt(x, height, z).setType(Material.GLASS);

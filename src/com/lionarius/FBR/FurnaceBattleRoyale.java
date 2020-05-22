@@ -1,5 +1,7 @@
 package com.lionarius.FBR;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import com.lionarius.FBR.commands.CreateChunkBorderCommand;
 import com.lionarius.FBR.commands.CreateTimerCommand;
 import com.lionarius.FBR.commands.TeamCommand;
@@ -7,7 +9,6 @@ import com.lionarius.FBR.config.ConfigManager;
 import com.lionarius.FBR.game.GameManager;
 import com.lionarius.FBR.game.GameState;
 import com.lionarius.FBR.listeners.*;
-import com.lionarius.FBR.utils.LocationUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
@@ -23,6 +24,8 @@ public class FurnaceBattleRoyale extends JavaPlugin {
     public static FurnaceBattleRoyale getInstance() {
         return instance;
     }
+
+    public static ProtocolManager protocolManager;
 
     public static World getWorld() {
         return Bukkit.getWorld("world");
@@ -53,6 +56,8 @@ public class FurnaceBattleRoyale extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        protocolManager = ProtocolLibrary.getProtocolManager();
     }
 
     @Override
@@ -61,7 +66,7 @@ public class FurnaceBattleRoyale extends JavaPlugin {
 
         new ConfigManager();
         //create spiral pattern
-        LocationUtils.spiralPattern = LocationUtils.spiral(ConfigManager.MAP_SIZE_IN_CHUNKS);
+//        LocationUtils.spiralPattern = LocationUtils.spiral(ConfigManager.MAP_SIZE_IN_CHUNKS);
 
         this.getServer().getPluginManager().registerEvents(new PlayerConnectionListener(), this);
         this.getServer().getPluginManager().registerEvents(new FurnaceBurnedOutListener(), this);

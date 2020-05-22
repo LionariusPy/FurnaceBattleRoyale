@@ -1,64 +1,53 @@
 package com.lionarius.FBR.utils;
 
-import net.minecraft.server.v1_15_R1.EntityPlayer;
-import net.minecraft.server.v1_15_R1.PacketPlayOutWorldBorder;
-import net.minecraft.server.v1_15_R1.WorldBorder;
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.lionarius.FBR.FurnaceBattleRoyale;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 
 public class WorldBorderUtils {
 
     public static void setWorldBorderLocation(Player player, Location location) {
-        EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
 
-        WorldBorder playerWorldBorder = entityPlayer.world.getWorldBorder();
+        PacketContainer packetContainer = FurnaceBattleRoyale.protocolManager.createPacket(PacketType.Play.Server.WORLD_BORDER);
 
-        PacketPlayOutWorldBorder worldBorder = new PacketPlayOutWorldBorder(playerWorldBorder, PacketPlayOutWorldBorder.EnumWorldBorderAction.SET_CENTER);
+        packetContainer.getWorldBorderActions().writeDefaults().writeSafely(0, EnumWrappers.WorldBorderAction.SET_CENTER);
 
-        setField(worldBorder, "c", location.getX());
-        setField(worldBorder, "d", location.getZ());
+        packetContainer.getDoubles().writeDefaults().
+                write(0, location.getX()).
+                write(1, location.getZ());
 
-        entityPlayer.playerConnection.sendPacket(worldBorder);
+        try {
+            FurnaceBattleRoyale.protocolManager.sendServerPacket(player, packetContainer);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void setWorldBorderSize(Player player, double size) {
-        EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
 
-        WorldBorder playerWorldBorder = entityPlayer.world.getWorldBorder();
+        PacketContainer packetContainer = FurnaceBattleRoyale.protocolManager.createPacket(PacketType.Play.Server.WORLD_BORDER);
 
-        PacketPlayOutWorldBorder worldBorder = new PacketPlayOutWorldBorder(playerWorldBorder, PacketPlayOutWorldBorder.EnumWorldBorderAction.SET_SIZE);
+        packetContainer.getWorldBorderActions().writeDefaults().writeSafely(0, EnumWrappers.WorldBorderAction.SET_SIZE);
 
-        setField(worldBorder, "e", size);
+        packetContainer.getDoubles().writeDefaults().write(2, size);
 
-        entityPlayer.playerConnection.sendPacket(worldBorder);
+        try {
+            FurnaceBattleRoyale.protocolManager.sendServerPacket(player, packetContainer);
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void resetWorldBorder(Player player) {
-        EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
 
-        WorldBorder playerWorldBorder = entityPlayer.world.getWorldBorder();
-
-        PacketPlayOutWorldBorder worldBorder = new PacketPlayOutWorldBorder(playerWorldBorder, PacketPlayOutWorldBorder.EnumWorldBorderAction.INITIALIZE);
-
-        setField(worldBorder, "e", playerWorldBorder.getSize());
-        setField(worldBorder, "c", playerWorldBorder.getCenterX());
-        setField(worldBorder, "d", playerWorldBorder.getCenterZ());
-
-        entityPlayer.playerConnection.sendPacket(worldBorder);
-    }
-
-    private static void setField(Object object, String fieldName, Object value) {
-        try {
-            Field field = object.getClass().getDeclaredField(fieldName);
-            field.setAccessible(true);
-            field.set(object, value);
-            field.setAccessible(false);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        WorldBorder worldBorder = FurnaceBattleRoyale.getWorld().getWorldBorder();
+        setWorldBorderLocation(player, worldBorder.getCenter());
+        setWorldBorderSize(player, worldBorder.getSize());
     }
 }

@@ -18,7 +18,7 @@ public class LocationUtils {
             Material.DARK_OAK_LEAVES, Material.JUNGLE_LEAVES,
             Material.OAK_LEAVES, Material.SPRUCE_LEAVES));
 
-    public static List<Vector> spiralPattern;
+    public static List<Vector> spiralPattern = spiral(ConfigManager.MAP_SIZE_IN_CHUNKS);
 
     public static Location getDownBlock(Location location) {
         Location down = location;
@@ -48,7 +48,7 @@ public class LocationUtils {
     public static Chunk getClosestFreeChunk(Chunk target) {
         Chunk closestChunk = null;
 //        int searchRadius = (int) Math.ceil((double) ConfigManager.MAP_SIZE_IN_CHUNKS / 2);
-        int searchRadius = ConfigManager.MAP_SIZE_IN_CHUNKS;
+//        int searchRadius = ConfigManager.MAP_SIZE_IN_CHUNKS;
 
         int targetX = target.getX();
         int targetZ = target.getZ();

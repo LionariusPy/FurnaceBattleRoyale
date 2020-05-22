@@ -27,10 +27,10 @@ public class CreateChunkBorderCommand implements CommandExecutor, TabCompleter {
         if (args.length == 1) {
             System.out.println(args[0]);
             if (args[0].equalsIgnoreCase("create")) {
-                WorldBorderUtils.setWorldBorderSize(player, 16);
-
                 Location chunkLocation = new Location(player.getWorld(), player.getLocation().getChunk().getX() * 16 + 8, 0, (player.getLocation().getChunk().getZ() * 16) + 8);
                 WorldBorderUtils.setWorldBorderLocation(player, chunkLocation);
+
+                WorldBorderUtils.setWorldBorderSize(player, 16);
                 return true;
             } else if (args[0].equalsIgnoreCase("remove")) {
                 WorldBorderUtils.resetWorldBorder(player);

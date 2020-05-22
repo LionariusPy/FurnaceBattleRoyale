@@ -4,6 +4,7 @@ version: 0.0.1-pre1
 main: com.lionarius.FBR.FurnaceBattleRoyale
 description: Furnace Battle Royale plugin for Zakviel
 api-version: "1.15"
+depend: [ProtocolLib]
 
 commands:
   customborder:
